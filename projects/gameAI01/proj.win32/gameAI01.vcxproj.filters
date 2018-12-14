@@ -10,6 +10,12 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\2D">
+      <UniqueIdentifier>{96b6249c-6775-4575-9892-adcf04ca34eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\misc">
+      <UniqueIdentifier>{3c01f646-2872-499e-8389-404dbcdd1cdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,6 +27,9 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\common\2D\Vector2D.cpp">
+      <Filter>src\2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -31,6 +40,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\2D\Vector2D.h">
+      <Filter>src\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\misc\utils.h">
+      <Filter>src\misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,9 @@
 
 USING_NS_CC;
 
+#include "Common/2D/Vector2D.h"
+#include "Common/misc/utils.h"
+
 Scene* HelloWorld::createScene()
 {
     return HelloWorld::create();
