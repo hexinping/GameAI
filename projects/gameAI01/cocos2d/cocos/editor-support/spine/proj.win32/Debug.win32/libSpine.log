@@ -1,0 +1,91 @@
+﻿生成启动时间为 2018/12/14 16:45:02。
+     1>项目“E:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj”在节点 4 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\ /I"E:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\cocos\editor-support" /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\extensions /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\cocos /I"E:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\cocos/editor-support" /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\glfw3\include\win32 /I"E:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\win32-specific\gles\include\OGLES" /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\freetype2\include\win32\freetype2 /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\freetype2\include\win32\ /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\openssl\include\win32 /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _LIB /D COCOS2DXWIN32_EXPORTS /D GL_GLEXT_PROTOTYPES /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _VARIADIC_MAX=10 /D _USING_V110_SDK71_ /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc120.pdb" /Gd /TC /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Animation.c ..\AnimationState.c ..\AnimationStateData.c ..\Atlas.c ..\AtlasAttachmentLoader.c ..\Attachment.c ..\AttachmentLoader.c ..\Bone.c ..\BoneData.c ..\BoundingBoxAttachment.c ..\Event.c ..\EventData.c ..\extension.c ..\IkConstraint.c ..\IkConstraintData.c ..\Json.c ..\MeshAttachment.c ..\PathAttachment.c ..\PathConstraint.c ..\PathConstraintData.c ..\RegionAttachment.c ..\Skeleton.c ..\SkeletonBinary.c ..\SkeletonBounds.c ..\SkeletonData.c ..\SkeletonJson.c ..\Skin.c ..\Slot.c ..\SlotData.c ..\TransformConstraint.c ..\TransformConstraintData.c ..\VertexAttachment.c
+         Animation.c
+         AnimationState.c
+         AnimationStateData.c
+         Atlas.c
+         AtlasAttachmentLoader.c
+         Attachment.c
+         AttachmentLoader.c
+         Bone.c
+         BoneData.c
+         BoundingBoxAttachment.c
+         Event.c
+         EventData.c
+         extension.c
+         IkConstraint.c
+         IkConstraintData.c
+         Json.c
+         MeshAttachment.c
+         PathAttachment.c
+         PathConstraint.c
+         PathConstraintData.c
+         RegionAttachment.c
+         Skeleton.c
+         SkeletonBinary.c
+         SkeletonBounds.c
+         SkeletonData.c
+         SkeletonJson.c
+         Skin.c
+         Slot.c
+         SlotData.c
+     1>e:\hxp\gameai\projects\gameai01\cocos2d\cocos\editor-support\spine\skeletonbinary.c(294): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\hxp\gameai\projects\gameai01\cocos2d\cocos\editor-support\spine\skeletonbinary.c(357): warning C4018: “<”: 有符号/无符号不匹配
+         TransformConstraint.c
+         TransformConstraintData.c
+     1>e:\hxp\gameai\projects\gameai01\cocos2d\cocos\editor-support\spine\skeletonbinary.c(469): warning C4018: “<”: 有符号/无符号不匹配
+         VertexAttachment.c
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\ /I"E:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\cocos\editor-support" /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\extensions /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\cocos /I"E:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\cocos/editor-support" /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\glfw3\include\win32 /I"E:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\win32-specific\gles\include\OGLES" /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\freetype2\include\win32\freetype2 /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\freetype2\include\win32\ /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external /IE:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\2d\..\..\external\openssl\include\win32 /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _LIB /D COCOS2DXWIN32_EXPORTS /D GL_GLEXT_PROTOTYPES /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _VARIADIC_MAX=10 /D _USING_V110_SDK71_ /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc120.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\AttachmentVertices.cpp ..\Cocos2dAttachmentLoader.cpp ..\SkeletonAnimation.cpp ..\SkeletonBatch.cpp ..\SkeletonRenderer.cpp "..\spine-cocos2dx.cpp"
+         AttachmentVertices.cpp
+         Cocos2dAttachmentLoader.cpp
+         SkeletonAnimation.cpp
+         SkeletonBatch.cpp
+         SkeletonRenderer.cpp
+         spine-cocos2dx.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"E:\hxp\GameAI\projects\gameAI01\proj.win32\Debug.win32\libSpine.lib" /NOLOGO Debug.win32\Animation.obj
+         Debug.win32\AnimationState.obj
+         Debug.win32\AnimationStateData.obj
+         Debug.win32\Atlas.obj
+         Debug.win32\AtlasAttachmentLoader.obj
+         Debug.win32\Attachment.obj
+         Debug.win32\AttachmentLoader.obj
+         Debug.win32\AttachmentVertices.obj
+         Debug.win32\Bone.obj
+         Debug.win32\BoneData.obj
+         Debug.win32\BoundingBoxAttachment.obj
+         Debug.win32\Cocos2dAttachmentLoader.obj
+         Debug.win32\Event.obj
+         Debug.win32\EventData.obj
+         Debug.win32\extension.obj
+         Debug.win32\IkConstraint.obj
+         Debug.win32\IkConstraintData.obj
+         Debug.win32\Json.obj
+         Debug.win32\MeshAttachment.obj
+         Debug.win32\PathAttachment.obj
+         Debug.win32\PathConstraint.obj
+         Debug.win32\PathConstraintData.obj
+         Debug.win32\RegionAttachment.obj
+         Debug.win32\Skeleton.obj
+         Debug.win32\SkeletonAnimation.obj
+         Debug.win32\SkeletonBatch.obj
+         Debug.win32\SkeletonBinary.obj
+         Debug.win32\SkeletonBounds.obj
+         Debug.win32\SkeletonData.obj
+         Debug.win32\SkeletonJson.obj
+         Debug.win32\SkeletonRenderer.obj
+         Debug.win32\Skin.obj
+         Debug.win32\Slot.obj
+         Debug.win32\SlotData.obj
+         "Debug.win32\spine-cocos2dx.obj"
+         Debug.win32\TransformConstraint.obj
+         Debug.win32\TransformConstraintData.obj
+         Debug.win32\VertexAttachment.obj
+         libSpine.vcxproj -> E:\hxp\GameAI\projects\gameAI01\proj.win32\Debug.win32\libSpine.lib
+     1>已完成生成项目“E:\hxp\GameAI\projects\gameAI01\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:11.20
