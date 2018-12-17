@@ -2,3 +2,8 @@ projects/gameAI01/proj.win32/Debug.win32/
 projects/gameAI01/proj.win32/gameAI01.opensdf
 projects/gameAI01/proj.win32/gameAI01.sdf
 projects/gameAI01/proj.win32/gameAI01.v12.suo
+projects/gameAI01/cocos2d/cocos/2d/Debug.win32/
+projects/gameAI01/cocos2d/cocos/editor-support/spine/proj.win32/Debug.win32/
+projects/gameAI01/cocos2d/external/Box2D/proj.win32/Debug.win32/
+projects/gameAI01/cocos2d/external/recast/proj.win32/Debug.win32/
+projects/gameAI01/proj.win32/game.aps

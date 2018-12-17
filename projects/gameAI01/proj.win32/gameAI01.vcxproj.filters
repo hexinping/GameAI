@@ -16,6 +16,12 @@
     <Filter Include="src\misc">
       <UniqueIdentifier>{3c01f646-2872-499e-8389-404dbcdd1cdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\stateMachine">
+      <UniqueIdentifier>{d076070a-6c89-409a-a0f4-d6c31188631b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\enity">
+      <UniqueIdentifier>{9291e762-c723-47d7-aa38-8c1074cff38a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,6 +35,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\common\2D\Vector2D.cpp">
       <Filter>src\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\stateMachine\State.cpp">
+      <Filter>src\stateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\enity\BaseGameEntity.cpp">
+      <Filter>src\enity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\stateMachine\MinerOwnedStates.cpp">
+      <Filter>src\stateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\enity\Miner.cpp">
+      <Filter>src\enity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MineScene.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +67,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\common\misc\utils.h">
       <Filter>src\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\stateMachine\State.h">
+      <Filter>src\stateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\enity\BaseGameEntity.h">
+      <Filter>src\enity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\stateMachine\MinerOwnedStates.h">
+      <Filter>src\stateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\enity\Miner.h">
+      <Filter>src\enity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Locations.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MineScene.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
