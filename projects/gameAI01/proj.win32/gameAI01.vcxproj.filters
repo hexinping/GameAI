@@ -77,14 +77,17 @@
     <ClInclude Include="..\Classes\stateMachine\MinerOwnedStates.h">
       <Filter>src\stateMachine</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\enity\Miner.h">
-      <Filter>src\enity</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Locations.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MineScene.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\enity\Miner.h">
+      <Filter>src\enity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\stateMachine\StateMachine.h">
+      <Filter>src\stateMachine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

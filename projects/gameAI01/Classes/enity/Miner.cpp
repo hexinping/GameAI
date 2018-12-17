@@ -7,27 +7,27 @@ m_Location(shack),
 m_iGoldCarried(0),
 m_iMoneyInBank(0),
 m_iThirst(0),
-m_iFatigue(0),
-m_pCurrentState(GoHomeAndSleepTilRested::Instance())
+m_iFatigue(0)
 {
-
+	m_pStateMachine = new StateMachine<Miner>(this);
+	m_pStateMachine->SetCurrentState(GoHomeAndSleepTilRested::Instance());
 }
 
-void Miner::ChangeState(State<Miner> *newState)
-{
-	assert(m_pCurrentState && newState);
-
-	m_pCurrentState->Exit(this);
-
-	m_pCurrentState = newState;
-
-	m_pCurrentState->Enter(this);
-}
-
-void Miner::RevertToPreviousState()
-{
-	ChangeState(m_pPreviousState);
-}
+//void Miner::ChangeState(State<Miner> *newState)
+//{
+//	assert(m_pCurrentState && newState);
+//
+//	m_pCurrentState->Exit(this);
+//
+//	m_pCurrentState = newState;
+//
+//	m_pCurrentState->Enter(this);
+//}
+//
+//void Miner::RevertToPreviousState()
+//{
+//	ChangeState(m_pPreviousState);
+//}
 
 //-----------------------------------------------------------------------------
 void Miner::AddToGoldCarried(const int val)
@@ -61,10 +61,7 @@ void Miner::Update()
 {
 	m_iThirst += 1;
 
-	if (m_pCurrentState)
-	{
-		m_pCurrentState->Execute(this);
-	}
+	m_pStateMachine->Update();
 }
 
 

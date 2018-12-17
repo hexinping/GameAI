@@ -59,13 +59,13 @@ void EnterMineAndDigForNugget::Execute(Miner* pMiner)
 	//if enough gold mined, go and put it in the bank
 	if (pMiner->PocketsFull())
 	{
-		pMiner->ChangeState(VisitBankAndDepositGold::Instance());
+		pMiner->GetFSM()->ChangeState(VisitBankAndDepositGold::Instance());
 		return;
 	}
 
 	if (pMiner->Thirsty())
 	{
-		pMiner->ChangeState(QuenchThirst::Instance());
+		pMiner->GetFSM()->ChangeState(QuenchThirst::Instance());
 		return;
 	}
 }
@@ -114,13 +114,13 @@ void VisitBankAndDepositGold::Execute(Miner* pMiner)
 	{
 		string name = GetNameOfEntity(pMiner->ID());
 		CCLOG("%s:     WooHoo! Rich enough for now. Back home to mah li'lle lady", name.c_str());
-		pMiner->ChangeState(GoHomeAndSleepTilRested::Instance());
+		pMiner->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
 	}
 
 	//otherwise get more gold
 	else
 	{
-		pMiner->ChangeState(EnterMineAndDigForNugget::Instance());
+		pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 	}
 }
 
@@ -159,7 +159,7 @@ void GoHomeAndSleepTilRested::Execute(Miner* pMiner)
 	{
 		
 		CCLOG("%s:     What a God darn fantastic nap! Time to find more gold", name.c_str());
-		pMiner->ChangeState(EnterMineAndDigForNugget::Instance());
+		pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 	}
 	else
 	{
@@ -205,7 +205,7 @@ void QuenchThirst::Execute(Miner* pMiner)
 		string name = GetNameOfEntity(pMiner->ID());
 		CCLOG("%s:     That's mighty fine sippin liquer", name.c_str());
 
-		pMiner->ChangeState(EnterMineAndDigForNugget::Instance());
+		pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 	}
 
 	else

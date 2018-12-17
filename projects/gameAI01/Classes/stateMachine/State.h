@@ -1,6 +1,5 @@
 #pragma once
 
-class Miner;
 template<class entity_type>
 class State
 {

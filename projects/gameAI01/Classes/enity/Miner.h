@@ -2,8 +2,7 @@
 
 #include "enity/BaseGameEntity.h"
 #include "Locations.h"
-#include "stateMachine/State.h"
-//class State;
+#include "stateMachine/StateMachine.h"
 
 
 //the amount of gold a miner must have before he feels comfortable
@@ -20,10 +19,10 @@ class Miner : public BaseGameEntity
 public:
 	Miner(int id);
 
-	void Update();
+	~Miner(){ delete m_pStateMachine; }
+	StateMachine<Miner>*  GetFSM()const{ return m_pStateMachine; }
 
-	void ChangeState(State<Miner> *newState);
-	void RevertToPreviousState();
+	void Update();
 
 	location_type Location() const{ return m_Location; }
 	void  ChangeLocation(const location_type loc){ m_Location = loc; }
@@ -44,13 +43,9 @@ public:
 	bool  Thirsty()const;
 	void  BuyAndDrinkAWhiskey(){ m_iThirst = 0; m_iMoneyInBank -= 2; }
 
-public:
 private:
-	State<Miner>* m_pCurrentState;
-	State<Miner>* m_pPreviousState;//前置状态
-	State<Miner>* m_pGlobalState;
 
-
+	StateMachine<Miner> * m_pStateMachine;
 
 	location_type m_Location;
 

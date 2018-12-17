@@ -1,5 +1,4 @@
 #include "BaseGameEntity.h"
-#include <cassert>
 
 BaseGameEntity::BaseGameEntity(int id)
 {
