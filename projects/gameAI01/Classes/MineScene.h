@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "enity/Miner.h"
+#include "enity/MinerWife.h"
 
 class MineScene : public cocos2d::Scene
 {
@@ -11,6 +12,8 @@ public:
 
     virtual bool init();
 
+	~MineScene();
+
 	void update(float dt);
     
     // implement the "static create()" method manually
@@ -18,6 +21,7 @@ public:
 
 public:
 	Miner * _pMiner;
+	MinerWife *_pMinerWife;
 	float sleepTime = 0.0;
 };
 

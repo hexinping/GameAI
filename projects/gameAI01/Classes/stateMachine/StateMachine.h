@@ -18,6 +18,10 @@ public:
 	void SetGlobalState(State<entity_type>* s) { m_pGlobalState = s; }
 	void SetPreviousState(State<entity_type>* s){ m_pPreviousState = s; }
 
+	void  RevertToPreviousState()
+	{
+		ChangeState(m_pPreviousState);
+	}
 
 	void  Update()const
 	{

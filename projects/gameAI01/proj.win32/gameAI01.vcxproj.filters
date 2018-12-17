@@ -51,6 +51,12 @@
     <ClCompile Include="..\Classes\MineScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\enity\MinerWife.cpp">
+      <Filter>src\enity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\stateMachine\MinerWifeOwnedStates.cpp">
+      <Filter>src\stateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -87,6 +93,12 @@
       <Filter>src\enity</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\stateMachine\StateMachine.h">
+      <Filter>src\stateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\enity\MinerWife.h">
+      <Filter>src\enity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\stateMachine\MinerWifeOwnedStates.h">
       <Filter>src\stateMachine</Filter>
     </ClInclude>
   </ItemGroup>
