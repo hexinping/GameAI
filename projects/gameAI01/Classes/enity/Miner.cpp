@@ -13,7 +13,7 @@ m_pCurrentState(GoHomeAndSleepTilRested::Instance())
 
 }
 
-void Miner::ChangeState(State *newState)
+void Miner::ChangeState(State<Miner> *newState)
 {
 	assert(m_pCurrentState && newState);
 
@@ -22,6 +22,11 @@ void Miner::ChangeState(State *newState)
 	m_pCurrentState = newState;
 
 	m_pCurrentState->Enter(this);
+}
+
+void Miner::RevertToPreviousState()
+{
+	ChangeState(m_pPreviousState);
 }
 
 //-----------------------------------------------------------------------------

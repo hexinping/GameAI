@@ -2,7 +2,8 @@
 
 #include "enity/BaseGameEntity.h"
 #include "Locations.h"
-class State;
+#include "stateMachine/State.h"
+//class State;
 
 
 //the amount of gold a miner must have before he feels comfortable
@@ -21,7 +22,8 @@ public:
 
 	void Update();
 
-	void ChangeState(State *newState);
+	void ChangeState(State<Miner> *newState);
+	void RevertToPreviousState();
 
 	location_type Location() const{ return m_Location; }
 	void  ChangeLocation(const location_type loc){ m_Location = loc; }
@@ -44,7 +46,12 @@ public:
 
 public:
 private:
-	State* m_pCurrentState;
+	State<Miner>* m_pCurrentState;
+	State<Miner>* m_pPreviousState;//前置状态
+	State<Miner>* m_pGlobalState;
+
+
+
 	location_type m_Location;
 
 	//how many nuggets the miner has in his pockets

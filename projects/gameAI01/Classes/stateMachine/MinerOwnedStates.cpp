@@ -1,7 +1,6 @@
 #include "stateMachine/MinerOwnedStates.h"
 #include "Locations.h"
 #include <string>
-//#include "platform/CCPlatformMacros.h"
 #include "cocos2d.h"
 
 enum

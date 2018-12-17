@@ -6,7 +6,7 @@ using namespace std;
 
 
 
-class EnterMineAndDigForNugget : public State
+class EnterMineAndDigForNugget : public State<Miner>
 {
 private:
 
@@ -36,7 +36,7 @@ public:
 //  miner is subsequently wealthy enough he'll walk home, otherwise he'll
 //  keep going to get more gold
 //------------------------------------------------------------------------
-class VisitBankAndDepositGold : public State
+class VisitBankAndDepositGold : public State<Miner>
 {
 private:
 
@@ -58,7 +58,7 @@ public:
 	virtual void Exit(Miner* miner);
 };
 
-class GoHomeAndSleepTilRested :public State
+class GoHomeAndSleepTilRested :public State<Miner>
 {
 private:
 
@@ -84,7 +84,7 @@ public:
 //------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------
-class QuenchThirst : public State
+class QuenchThirst : public State<Miner>
 {
 private:
 
