@@ -173,6 +173,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\stateMachine\MinerOwnedStates.cpp" />
     <ClCompile Include="..\Classes\stateMachine\MinerWifeOwnedStates.cpp" />
     <ClCompile Include="..\Classes\stateMachine\State.cpp" />
+    <ClCompile Include="..\Classes\VehicleSprite.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +221,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\stateMachine\MinerWifeOwnedStates.h" />
     <ClInclude Include="..\Classes\stateMachine\State.h" />
     <ClInclude Include="..\Classes\stateMachine\StateMachine.h" />
+    <ClInclude Include="..\Classes\VehicleSprite.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
