@@ -156,8 +156,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\enity\EntityManager.cpp" />
     <ClCompile Include="..\Classes\enity\Miner.cpp" />
     <ClCompile Include="..\Classes\enity\MinerWife.cpp" />
+    <ClCompile Include="..\Classes\enity\MovingEntity.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\MineScene.cpp" />
+    <ClCompile Include="..\Classes\MovingEntityScene.cpp" />
     <ClCompile Include="..\Classes\stateMachine\MinerOwnedStates.cpp" />
     <ClCompile Include="..\Classes\stateMachine\MinerWifeOwnedStates.cpp" />
     <ClCompile Include="..\Classes\stateMachine\State.cpp" />
@@ -178,10 +180,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\enity\EntityManager.h" />
     <ClInclude Include="..\Classes\enity\Miner.h" />
     <ClInclude Include="..\Classes\enity\MinerWife.h" />
+    <ClInclude Include="..\Classes\enity\MovingEntity.h" />
     <ClInclude Include="..\Classes\EntityNames.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\Locations.h" />
     <ClInclude Include="..\Classes\MineScene.h" />
+    <ClInclude Include="..\Classes\MovingEntityScene.h" />
     <ClInclude Include="..\Classes\stateMachine\MinerOwnedStates.h" />
     <ClInclude Include="..\Classes\stateMachine\MinerWifeOwnedStates.h" />
     <ClInclude Include="..\Classes\stateMachine\State.h" />

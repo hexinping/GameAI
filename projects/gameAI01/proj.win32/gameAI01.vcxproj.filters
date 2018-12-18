@@ -72,6 +72,12 @@
     <ClCompile Include="..\Classes\common\time\CrudeTimer.cpp">
       <Filter>src\time</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\enity\MovingEntity.cpp">
+      <Filter>src\enity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MovingEntityScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -141,6 +147,12 @@
       <Filter>src\2D</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\EntityNames.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\enity\MovingEntity.h">
+      <Filter>src\enity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MovingEntityScene.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

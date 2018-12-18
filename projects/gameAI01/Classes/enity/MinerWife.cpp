@@ -12,9 +12,9 @@ m_bCooking(false)
 }
 
 
-void MinerWife::Update()
+void MinerWife::Update(float t)
 {
-	m_pStateMachine->Update();
+	m_pStateMachine->Update(t);
 }
 
 bool MinerWife::HandleMessage(const Telegram& msg)

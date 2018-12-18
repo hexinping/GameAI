@@ -22,7 +22,7 @@ public:
 	~Miner(){ delete m_pStateMachine; }
 	StateMachine<Miner>*  GetFSM()const{ return m_pStateMachine; }
 
-	void Update();
+	void Update(float t);
 
 	location_type Location() const{ return m_Location; }
 	void  ChangeLocation(const location_type loc){ m_Location = loc; }

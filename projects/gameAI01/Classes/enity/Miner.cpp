@@ -42,11 +42,11 @@ bool Miner::Thirsty()const
 
 
 //-----------------------------------------------------------------------------
-void Miner::Update()
+void Miner::Update(float t)
 {
 	m_iThirst += 1;
 
-	m_pStateMachine->Update();
+	m_pStateMachine->Update(t);
 }
 
 

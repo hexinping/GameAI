@@ -89,7 +89,7 @@ public:
 
 	virtual ~BaseGameEntity(){}
 
-	virtual void Update(double time_elapsed){};
+	virtual void Update(float t){};
 
 	virtual void Render(){};
 

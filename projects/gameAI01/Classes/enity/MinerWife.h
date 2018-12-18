@@ -14,7 +14,7 @@ public:
 	~MinerWife(){ delete m_pStateMachine; }
 	StateMachine<MinerWife>*  GetFSM()const{ return m_pStateMachine; }
 
-	void Update();
+	void Update(float t);
 
 
 	//----------------------------------------------------accessors

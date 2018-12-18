@@ -1,7 +1,6 @@
 #include "MineScene.h"
 #include "enity/Miner.h"
 #include "common/messaging/MessageDispatcher.h"
-
 USING_NS_CC;
 
 enum
@@ -37,8 +36,8 @@ void MineScene::update(float dt)
 	if (sleepTime>=1.0)
 	{
 		sleepTime = 0;
-		_pMiner->Update();
-		_pMinerWife->Update();
+		_pMiner->Update(dt);
+		_pMinerWife->Update(dt);
 
 		Dispatch->DispatchDelayedMessages();
 	}

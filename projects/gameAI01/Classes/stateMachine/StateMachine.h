@@ -23,7 +23,7 @@ public:
 		ChangeState(m_pPreviousState);
 	}
 
-	void  Update()const
+	void  Update(float t)const
 	{
 		//if a global state exists, call its execute method, else do nothing
 		if (m_pGlobalState)   m_pGlobalState->Execute(m_pOwner);
