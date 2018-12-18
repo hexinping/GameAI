@@ -28,6 +28,9 @@
     <Filter Include="src\time">
       <UniqueIdentifier>{d580dead-0929-4383-8179-d6bf621d7e10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\behaviors">
+      <UniqueIdentifier>{03684d30-817f-4429-9310-896968ee9837}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -38,9 +41,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\common\2D\Vector2D.cpp">
-      <Filter>src\2D</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\stateMachine\State.cpp">
       <Filter>src\stateMachine</Filter>
@@ -78,6 +78,39 @@
     <ClCompile Include="..\Classes\MovingEntityScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameWorld.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\time\PrecisionTimer.cpp">
+      <Filter>src\time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\enity\Vehicle.cpp">
+      <Filter>src\enity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\behaviors\SteeringBehaviors.cpp">
+      <Filter>src\behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ParamLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Path.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\misc\Cgdi.cpp">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\enity\Obstacle.cpp">
+      <Filter>src\enity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\misc\WindowUtils.cpp">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\misc\iniFileLoaderBase.cpp">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\2D\Vector2D.cpp">
+      <Filter>src\2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -88,9 +121,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\2D\Vector2D.h">
-      <Filter>src\2D</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\misc\utils.h">
       <Filter>src\misc</Filter>
@@ -154,6 +184,69 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MovingEntityScene.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameWorld.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\time\PrecisionTimer.h">
+      <Filter>src\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\time\Regulator.h">
+      <Filter>src\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\misc\CellSpacePartition.h">
+      <Filter>src\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EntityFunctionTemplates.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\enity\Vehicle.h">
+      <Filter>src\enity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\behaviors\SteeringBehaviors.h">
+      <Filter>src\behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\misc\Smoother.h">
+      <Filter>src\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\constants.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ParamLoader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Path.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\2D\InvertedAABBox2D.h">
+      <Filter>src\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\2D\Wall2D.h">
+      <Filter>src\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\2D\WallIntersectionTests.h">
+      <Filter>src\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\misc\Cgdi.h">
+      <Filter>src\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\misc\Stream_Utility_Functions.h">
+      <Filter>src\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\enity\Obstacle.h">
+      <Filter>src\enity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\misc\WindowUtils.h">
+      <Filter>src\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\resource.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\misc\iniFileLoaderBase.h">
+      <Filter>src\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\2D\Vector2D.h">
+      <Filter>src\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

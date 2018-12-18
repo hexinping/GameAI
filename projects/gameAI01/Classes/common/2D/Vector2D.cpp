@@ -1,17 +1,10 @@
 #include "Vector2D.h"
 
-
-bool Vector2D::isZero()const{ 
-	return (x*x + y*y) < MinDouble;
-}
-
-
-
-//------------------------- Length ---------------------------------------
-//
-//  returns the length of a 2D vector
-//------------------------------------------------------------------------
-inline double Vector2D::Length()const
+////------------------------- Length ---------------------------------------
+////
+////  returns the length of a 2D vector
+////------------------------------------------------------------------------
+ double Vector2D::Length()const
 {
 	return sqrt(x * x + y * y);
 }
@@ -21,7 +14,7 @@ inline double Vector2D::Length()const
 //
 //  returns the squared length of a 2D vector
 //------------------------------------------------------------------------
-inline double Vector2D::LengthSq()const
+double Vector2D::LengthSq()const
 {
 	return (x * x + y * y);
 }
@@ -31,7 +24,7 @@ inline double Vector2D::LengthSq()const
 //
 //  calculates the dot product
 //------------------------------------------------------------------------
-inline double Vector2D::Dot(const Vector2D &v2)const
+ double Vector2D::Dot(const Vector2D &v2)const
 {
 	return x*v2.x + y*v2.y;
 }
@@ -43,7 +36,7 @@ inline double Vector2D::Dot(const Vector2D &v2)const
 //------------------------------------------------------------------------
 enum { clockwise = 1, anticlockwise = -1 };
 
-inline int Vector2D::Sign(const Vector2D& v2)const
+ int Vector2D::Sign(const Vector2D& v2)const
 {
 	if (y*v2.x > x*v2.y)
 	{
@@ -59,7 +52,7 @@ inline int Vector2D::Sign(const Vector2D& v2)const
 //
 //  Returns a vector perpendicular to this vector
 //------------------------------------------------------------------------
-inline Vector2D Vector2D::Perp()const
+ Vector2D Vector2D::Perp()const
 {
 	return Vector2D(-y, x);
 }
@@ -68,7 +61,7 @@ inline Vector2D Vector2D::Perp()const
 //
 //  calculates the euclidean distance between two vectors
 //------------------------------------------------------------------------
-inline double Vector2D::Distance(const Vector2D &v2)const
+ double Vector2D::Distance(const Vector2D &v2)const
 {
 	double ySeparation = v2.y - y;
 	double xSeparation = v2.x - x;
@@ -82,7 +75,7 @@ inline double Vector2D::Distance(const Vector2D &v2)const
 //
 //  calculates the euclidean distance squared between two vectors 
 //------------------------------------------------------------------------
-inline double Vector2D::DistanceSq(const Vector2D &v2)const
+ double Vector2D::DistanceSq(const Vector2D &v2)const
 {
 	double ySeparation = v2.y - y;
 	double xSeparation = v2.x - x;
@@ -94,7 +87,7 @@ inline double Vector2D::DistanceSq(const Vector2D &v2)const
 //
 //  truncates a vector so that its length does not exceed max
 //------------------------------------------------------------------------
-inline void Vector2D::Truncate(double max)
+ void Vector2D::Truncate(double max)
 {
 	if (this->Length() > max)
 	{
@@ -109,7 +102,7 @@ inline void Vector2D::Truncate(double max)
 //  given a normalized vector this method reflects the vector it
 //  is operating upon. (like the path of a ball bouncing off a wall)
 //------------------------------------------------------------------------
-inline void Vector2D::Reflect(const Vector2D& norm)
+ void Vector2D::Reflect(const Vector2D& norm)
 {
 	//double a = 2.0 * this->Dot(norm);
 	//Vector2D t = norm.GetReverse();
@@ -124,7 +117,7 @@ inline void Vector2D::Reflect(const Vector2D& norm)
 //
 //  returns the vector that is the reverse of this vector
 //------------------------------------------------------------------------
-inline Vector2D Vector2D::GetReverse()const
+ Vector2D Vector2D::GetReverse()const
 {
 	return Vector2D(-this->x, -this->y);
 }
@@ -134,7 +127,7 @@ inline Vector2D Vector2D::GetReverse()const
 //
 //  normalizes a 2D Vector
 //------------------------------------------------------------------------
-inline void Vector2D::Normalize()
+ void Vector2D::Normalize()
 {
 	double vector_length = this->Length();
 

@@ -1,6 +1,8 @@
 #include "MovingEntityScene.h"
 #include "common/messaging/MessageDispatcher.h"
 #include "enity/MovingEntity.h"
+#include "enity/Vehicle.h"
+
 USING_NS_CC;
 
 

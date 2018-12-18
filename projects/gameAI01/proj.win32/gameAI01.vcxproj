@@ -75,7 +75,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..\Classes\common\;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -149,17 +149,27 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\behaviors\SteeringBehaviors.cpp" />
     <ClCompile Include="..\Classes\common\2D\Vector2D.cpp" />
     <ClCompile Include="..\Classes\common\messaging\MessageDispatcher.cpp" />
+    <ClCompile Include="..\Classes\common\misc\Cgdi.cpp" />
+    <ClCompile Include="..\Classes\common\misc\iniFileLoaderBase.cpp" />
+    <ClCompile Include="..\Classes\common\misc\WindowUtils.cpp" />
     <ClCompile Include="..\Classes\common\time\CrudeTimer.cpp" />
+    <ClCompile Include="..\Classes\common\time\PrecisionTimer.cpp" />
     <ClCompile Include="..\Classes\enity\BaseGameEntity.cpp" />
     <ClCompile Include="..\Classes\enity\EntityManager.cpp" />
     <ClCompile Include="..\Classes\enity\Miner.cpp" />
     <ClCompile Include="..\Classes\enity\MinerWife.cpp" />
     <ClCompile Include="..\Classes\enity\MovingEntity.cpp" />
+    <ClCompile Include="..\Classes\enity\Obstacle.cpp" />
+    <ClCompile Include="..\Classes\enity\Vehicle.cpp" />
+    <ClCompile Include="..\Classes\GameWorld.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\MineScene.cpp" />
     <ClCompile Include="..\Classes\MovingEntityScene.cpp" />
+    <ClCompile Include="..\Classes\ParamLoader.cpp" />
+    <ClCompile Include="..\Classes\Path.cpp" />
     <ClCompile Include="..\Classes\stateMachine\MinerOwnedStates.cpp" />
     <ClCompile Include="..\Classes\stateMachine\MinerWifeOwnedStates.cpp" />
     <ClCompile Include="..\Classes\stateMachine\State.cpp" />
@@ -167,25 +177,45 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\behaviors\SteeringBehaviors.h" />
     <ClInclude Include="..\Classes\common\2D\C2DMatrix.h" />
     <ClInclude Include="..\Classes\common\2D\geometry.h" />
+    <ClInclude Include="..\Classes\common\2D\InvertedAABBox2D.h" />
     <ClInclude Include="..\Classes\common\2D\Transformations.h" />
     <ClInclude Include="..\Classes\common\2D\Vector2D.h" />
+    <ClInclude Include="..\Classes\common\2D\Wall2D.h" />
+    <ClInclude Include="..\Classes\common\2D\WallIntersectionTests.h" />
     <ClInclude Include="..\Classes\common\messaging\MessageDispatcher.h" />
     <ClInclude Include="..\Classes\common\messaging\MessageTypes.h" />
     <ClInclude Include="..\Classes\common\messaging\Telegram.h" />
+    <ClInclude Include="..\Classes\common\misc\CellSpacePartition.h" />
+    <ClInclude Include="..\Classes\common\misc\Cgdi.h" />
+    <ClInclude Include="..\Classes\common\misc\iniFileLoaderBase.h" />
+    <ClInclude Include="..\Classes\common\misc\Smoother.h" />
+    <ClInclude Include="..\Classes\common\misc\Stream_Utility_Functions.h" />
     <ClInclude Include="..\Classes\common\misc\utils.h" />
+    <ClInclude Include="..\Classes\common\misc\WindowUtils.h" />
     <ClInclude Include="..\Classes\common\time\CrudeTimer.h" />
+    <ClInclude Include="..\Classes\common\time\PrecisionTimer.h" />
+    <ClInclude Include="..\Classes\common\time\Regulator.h" />
+    <ClInclude Include="..\Classes\constants.h" />
     <ClInclude Include="..\Classes\enity\BaseGameEntity.h" />
     <ClInclude Include="..\Classes\enity\EntityManager.h" />
     <ClInclude Include="..\Classes\enity\Miner.h" />
     <ClInclude Include="..\Classes\enity\MinerWife.h" />
     <ClInclude Include="..\Classes\enity\MovingEntity.h" />
+    <ClInclude Include="..\Classes\enity\Obstacle.h" />
+    <ClInclude Include="..\Classes\enity\Vehicle.h" />
+    <ClInclude Include="..\Classes\EntityFunctionTemplates.h" />
     <ClInclude Include="..\Classes\EntityNames.h" />
+    <ClInclude Include="..\Classes\GameWorld.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\Locations.h" />
     <ClInclude Include="..\Classes\MineScene.h" />
     <ClInclude Include="..\Classes\MovingEntityScene.h" />
+    <ClInclude Include="..\Classes\ParamLoader.h" />
+    <ClInclude Include="..\Classes\Path.h" />
+    <ClInclude Include="..\Classes\resource.h" />
     <ClInclude Include="..\Classes\stateMachine\MinerOwnedStates.h" />
     <ClInclude Include="..\Classes\stateMachine\MinerWifeOwnedStates.h" />
     <ClInclude Include="..\Classes\stateMachine\State.h" />
