@@ -1,5 +1,6 @@
 #include "Miner.h"
 #include "stateMachine/MinerOwnedStates.h"
+#include "enity/EntityManager.h"
 #include <cassert>
 
 Miner::Miner(int id) :BaseGameEntity(id),
@@ -11,23 +12,9 @@ m_iFatigue(0)
 {
 	m_pStateMachine = new StateMachine<Miner>(this);
 	m_pStateMachine->SetCurrentState(GoHomeAndSleepTilRested::Instance());
+	EntityMgr->RegisterEntity(this);
 }
 
-//void Miner::ChangeState(State<Miner> *newState)
-//{
-//	assert(m_pCurrentState && newState);
-//
-//	m_pCurrentState->Exit(this);
-//
-//	m_pCurrentState = newState;
-//
-//	m_pCurrentState->Enter(this);
-//}
-//
-//void Miner::RevertToPreviousState()
-//{
-//	ChangeState(m_pPreviousState);
-//}
 
 //-----------------------------------------------------------------------------
 void Miner::AddToGoldCarried(const int val)
@@ -74,4 +61,9 @@ bool Miner::Fatigued()const
 	}
 
 	return false;
+}
+
+bool Miner::HandleMessage(const Telegram& msg)
+{
+	return m_pStateMachine->HandleMessage(msg);
 }

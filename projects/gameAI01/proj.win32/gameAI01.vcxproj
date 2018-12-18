@@ -150,7 +150,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\common\2D\Vector2D.cpp" />
+    <ClCompile Include="..\Classes\common\messaging\MessageDispatcher.cpp" />
+    <ClCompile Include="..\Classes\common\time\CrudeTimer.cpp" />
     <ClCompile Include="..\Classes\enity\BaseGameEntity.cpp" />
+    <ClCompile Include="..\Classes\enity\EntityManager.cpp" />
     <ClCompile Include="..\Classes\enity\Miner.cpp" />
     <ClCompile Include="..\Classes\enity\MinerWife.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
@@ -163,8 +166,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\common\2D\Vector2D.h" />
+    <ClInclude Include="..\Classes\common\messaging\MessageDispatcher.h" />
+    <ClInclude Include="..\Classes\common\messaging\MessageTypes.h" />
+    <ClInclude Include="..\Classes\common\messaging\Telegram.h" />
     <ClInclude Include="..\Classes\common\misc\utils.h" />
+    <ClInclude Include="..\Classes\common\time\CrudeTimer.h" />
     <ClInclude Include="..\Classes\enity\BaseGameEntity.h" />
+    <ClInclude Include="..\Classes\enity\EntityManager.h" />
     <ClInclude Include="..\Classes\enity\Miner.h" />
     <ClInclude Include="..\Classes\enity\MinerWife.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />

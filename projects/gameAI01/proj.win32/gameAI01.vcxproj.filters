@@ -22,6 +22,12 @@
     <Filter Include="src\enity">
       <UniqueIdentifier>{9291e762-c723-47d7-aa38-8c1074cff38a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\messaging">
+      <UniqueIdentifier>{54f919f8-7ca7-4834-abf0-ad3b98878cf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\time">
+      <UniqueIdentifier>{d580dead-0929-4383-8179-d6bf621d7e10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +62,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\stateMachine\MinerWifeOwnedStates.cpp">
       <Filter>src\stateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\messaging\MessageDispatcher.cpp">
+      <Filter>src\messaging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\enity\EntityManager.cpp">
+      <Filter>src\enity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\time\CrudeTimer.cpp">
+      <Filter>src\time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +115,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\stateMachine\MinerWifeOwnedStates.h">
       <Filter>src\stateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\messaging\Telegram.h">
+      <Filter>src\messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\enity\EntityManager.h">
+      <Filter>src\enity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\messaging\MessageDispatcher.h">
+      <Filter>src\messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\time\CrudeTimer.h">
+      <Filter>src\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\messaging\MessageTypes.h">
+      <Filter>src\messaging</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

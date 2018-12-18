@@ -43,6 +43,8 @@ public:
 	bool  Thirsty()const;
 	void  BuyAndDrinkAWhiskey(){ m_iThirst = 0; m_iMoneyInBank -= 2; }
 
+	//so must this
+	virtual bool  HandleMessage(const Telegram& msg);
 private:
 
 	StateMachine<Miner> * m_pStateMachine;

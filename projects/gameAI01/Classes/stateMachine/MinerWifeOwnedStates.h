@@ -1,6 +1,7 @@
 #pragma once
 #include "stateMachine/State.h"
 #include "enity/MinerWife.h"
+#include "common/messaging/Telegram.h"
 #include <iostream>
 using namespace std;
 
@@ -25,6 +26,8 @@ public:
 	virtual void Execute(MinerWife* wife);
 
 	virtual void Exit(MinerWife* wife){}
+
+	virtual bool OnMessage(MinerWife* pWife, const Telegram& msg);
 };
 
 
@@ -50,6 +53,7 @@ public:
 
 	virtual void Exit(MinerWife* wife);
 
+	virtual bool OnMessage(MinerWife* pWife, const Telegram& msg);
 };
 
 
@@ -78,5 +82,30 @@ public:
 
 	virtual void Exit(MinerWife* wife);
 
+	virtual bool OnMessage(MinerWife* pWife, const Telegram& msg);
+};
+
+class CookStew : public State < MinerWife >
+{
+private:
+
+	CookStew(){}
+
+	//copy ctor and assignment should be private
+	CookStew(const CookStew&);
+	CookStew& operator=(const CookStew&);
+
+public:
+
+	//this is a singleton
+	static CookStew* Instance();
+
+	virtual void Enter(MinerWife* wife);
+
+	virtual void Execute(MinerWife* wife);
+
+	virtual void Exit(MinerWife* wife);
+
+	virtual bool OnMessage(MinerWife* pWife, const Telegram& msg);
 };
 

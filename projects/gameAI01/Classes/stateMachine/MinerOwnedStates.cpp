@@ -2,27 +2,10 @@
 #include "Locations.h"
 #include <string>
 #include "cocos2d.h"
-
-enum
-{
-	ent_Miner_Bob,
-
-	ent_Elsa
-};
-
-inline std::string GetNameOfEntity(int n)
-{
-	switch (n)
-	{
-	case ent_Miner_Bob:
-		return "Miner Bob";
-	case ent_Elsa:
-		return "Elsa";
-	default:
-
-		return "UNKNOWN!";
-	}
-}
+#include "EntityNames.h"
+#include "common/messaging/MessageDispatcher.h"
+#include "common/messaging/MessageTypes.h"
+#include "common/time/CrudeTimer.h"
 
 
 EnterMineAndDigForNugget* EnterMineAndDigForNugget::Instance()
@@ -75,6 +58,12 @@ void EnterMineAndDigForNugget::Exit(Miner* pMiner)
 {
 	string name = GetNameOfEntity(pMiner->ID());
 	CCLOG("%s:     Ah'm leavin' the goldmine with mah pockets full o' sweet gold", name.c_str());
+}
+
+bool EnterMineAndDigForNugget::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
 }
 
 //----------------------------------------methods for VisitBankAndDepositGold
@@ -132,6 +121,12 @@ void VisitBankAndDepositGold::Exit(Miner* pMiner)
 	CCLOG("%s:     Leavin' the bank", name.c_str());
 }
 
+bool VisitBankAndDepositGold::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
+
 
 //----------------------------------------methods for GoHomeAndSleepTilRested
 GoHomeAndSleepTilRested* GoHomeAndSleepTilRested::Instance()
@@ -149,6 +144,13 @@ void GoHomeAndSleepTilRested::Enter(Miner* pMiner)
 		string name = GetNameOfEntity(pMiner->ID());
 		CCLOG("%s:     Walkin home", name.c_str());
 		pMiner->ChangeLocation(shack);
+
+		//let the wife know I'm home
+		Dispatch->DispatchMessages(SEND_MSG_IMMEDIATELY, //time delay
+			pMiner->ID(),        //ID of sender
+			ent_Elsa,            //ID of recipient
+			Msg_HiHoneyImHome,   //the message
+			NO_ADDITIONAL_INFO);
 	}
 }
 
@@ -175,6 +177,23 @@ void GoHomeAndSleepTilRested::Exit(Miner* pMiner)
 	CCLOG("%s:     Leaving the house", name.c_str());
 }
 
+bool GoHomeAndSleepTilRested::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	string name = GetNameOfEntity(pMiner->ID());
+	switch (msg.Msg)
+	{
+	case Msg_StewReady:
+
+		CCLOG("Message handled by %s:  at time: %f", name.c_str(), Clock->GetCurrentTime());
+		CCLOG("%s:  : Okay Hun, ahm a comin'!", name.c_str());
+		pMiner->GetFSM()->ChangeState(EatStew::Instance());
+
+		return true;
+
+	}//end switch
+
+	return false; //send message to global message handler
+}
 
 //------------------------------------------------methods for QuenchThirst
 
@@ -219,3 +238,44 @@ void QuenchThirst::Exit(Miner* pMiner)
 	string name = GetNameOfEntity(pMiner->ID());
 	CCLOG("%s:     Leaving the saloon, feelin' good", name.c_str());
 }
+
+bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
+
+EatStew* EatStew::Instance()
+{
+	static EatStew instance;
+
+	return &instance;
+}
+
+
+void EatStew::Enter(Miner* pMiner)
+{
+	string name = GetNameOfEntity(pMiner->ID());
+	CCLOG("%s:     Smells Reaaal goood Elsa!", name.c_str());
+}
+
+void EatStew::Execute(Miner* pMiner)
+{
+	string name = GetNameOfEntity(pMiner->ID());
+	CCLOG("%s:     Tastes real good too!", name.c_str());
+	pMiner->GetFSM()->RevertToPreviousState();
+}
+
+void EatStew::Exit(Miner* pMiner)
+{
+	string name = GetNameOfEntity(pMiner->ID());
+	CCLOG("%s:     Thankya li'lle lady. Ah better get back to whatever ah wuz doin'", name.c_str());
+}
+
+
+bool EatStew::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
+

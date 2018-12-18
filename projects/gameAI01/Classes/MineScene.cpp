@@ -1,5 +1,6 @@
 #include "MineScene.h"
 #include "enity/Miner.h"
+#include "common/messaging/MessageDispatcher.h"
 
 USING_NS_CC;
 
@@ -38,6 +39,8 @@ void MineScene::update(float dt)
 		sleepTime = 0;
 		_pMiner->Update();
 		_pMinerWife->Update();
+
+		Dispatch->DispatchDelayedMessages();
 	}
 }
 
