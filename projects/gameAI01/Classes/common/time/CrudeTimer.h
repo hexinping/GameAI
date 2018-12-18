@@ -12,7 +12,7 @@
 
 //this library must be included
 #pragma comment(lib, "winmm.lib")
-
+#include <winsock2.h>
 #include <windows.h>
 
 

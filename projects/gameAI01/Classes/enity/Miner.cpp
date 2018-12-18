@@ -1,9 +1,8 @@
 #include "Miner.h"
 #include "stateMachine/MinerOwnedStates.h"
-#include "enity/EntityManager.h"
 #include <cassert>
 
-Miner::Miner(int id) :BaseGameEntity(id),
+Miner::Miner() :BaseGameEntity(),
 m_Location(shack),
 m_iGoldCarried(0),
 m_iMoneyInBank(0),
@@ -12,7 +11,6 @@ m_iFatigue(0)
 {
 	m_pStateMachine = new StateMachine<Miner>(this);
 	m_pStateMachine->SetCurrentState(GoHomeAndSleepTilRested::Instance());
-	EntityMgr->RegisterEntity(this);
 }
 
 

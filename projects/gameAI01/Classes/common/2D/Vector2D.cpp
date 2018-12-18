@@ -1,9 +1,5 @@
 #include "Vector2D.h"
 
-#include <iosfwd>
-#include <limits>
-#include <windows.h>
-
 
 bool Vector2D::isZero()const{ 
 	return (x*x + y*y) < MinDouble;
@@ -115,11 +111,13 @@ inline void Vector2D::Truncate(double max)
 //------------------------------------------------------------------------
 inline void Vector2D::Reflect(const Vector2D& norm)
 {
-	double a = 2.0 * this->Dot(norm);
-	Vector2D t = norm.GetReverse();
-	t.x = a * t.x;
-	t.y = a * t.y;
-	*this += t;
+	//double a = 2.0 * this->Dot(norm);
+	//Vector2D t = norm.GetReverse();
+	//t.x = a * t.x;
+	//t.y = a * t.y;
+	//*this += t;
+
+	*this += 2.0 * this->Dot(norm) * norm.GetReverse();
 }
 
 //----------------------- GetReverse ----------------------------------------
@@ -148,179 +146,5 @@ inline void Vector2D::Normalize()
 }
 
 
-//------------------------------------------------------------------------non member functions
-
-inline Vector2D Vec2DNormalize(const Vector2D &v)
-{
-	Vector2D vec = v;
-
-	double vector_length = vec.Length();
-
-	if (vector_length > std::numeric_limits<double>::epsilon())
-	{
-		vec.x /= vector_length;
-		vec.y /= vector_length;
-	}
-
-	return vec;
-}
-
-
-inline double Vec2DDistance(const Vector2D &v1, const Vector2D &v2)
-{
-
-	double ySeparation = v2.y - v1.y;
-	double xSeparation = v2.x - v1.x;
-
-	return sqrt(ySeparation*ySeparation + xSeparation*xSeparation);
-}
-
-inline double Vec2DDistanceSq(const Vector2D &v1, const Vector2D &v2)
-{
-
-	double ySeparation = v2.y - v1.y;
-	double xSeparation = v2.x - v1.x;
-
-	return ySeparation*ySeparation + xSeparation*xSeparation;
-}
-
-inline double Vec2DLength(const Vector2D& v)
-{
-	return sqrt(v.x*v.x + v.y*v.y);
-}
-
-inline double Vec2DLengthSq(const Vector2D& v)
-{
-	return (v.x*v.x + v.y*v.y);
-}
-
-
-inline Vector2D POINTStoVector(const POINTS& p)
-{
-	return Vector2D(p.x, p.y);
-}
-
-inline Vector2D POINTtoVector(const POINT& p)
-{
-	return Vector2D((double)p.x, (double)p.y);
-}
-
-inline POINTS VectorToPOINTS(const Vector2D& v)
-{
-	POINTS p;
-	p.x = (short)v.x;
-	p.y = (short)v.y;
-
-	return p;
-}
-
-inline POINT VectorToPOINT(const Vector2D& v)
-{
-	POINT p;
-	p.x = (long)v.x;
-	p.y = (long)v.y;
-
-	return p;
-}
-
-
-
-//------------------------------------------------------------------------operator overloads
-inline Vector2D operator*(const Vector2D &lhs, double rhs)
-{
-	Vector2D result(lhs);
-	result *= rhs;
-	return result;
-}
-
-inline Vector2D operator*(double lhs, const Vector2D &rhs)
-{
-	Vector2D result(rhs);
-	result *= lhs;
-	return result;
-}
-
-//overload the - operator
-inline Vector2D operator-(const Vector2D &lhs, const Vector2D &rhs)
-{
-	Vector2D result(lhs);
-	result.x -= rhs.x;
-	result.y -= rhs.y;
-
-	return result;
-}
-
-//overload the + operator
-inline Vector2D operator+(const Vector2D &lhs, const Vector2D &rhs)
-{
-	Vector2D result(lhs);
-	result.x += rhs.x;
-	result.y += rhs.y;
-
-	return result;
-}
-
-//overload the / operator
-inline Vector2D operator/(const Vector2D &lhs, double val)
-{
-	Vector2D result(lhs);
-	result.x /= val;
-	result.y /= val;
-
-	return result;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-
-//treats a window as a toroid
-inline void WrapAround(Vector2D &pos, int MaxX, int MaxY)
-{
-	if (pos.x > MaxX) { pos.x = 0.0; }
-
-	if (pos.x < 0)    { pos.x = (double)MaxX; }
-
-	if (pos.y < 0)    { pos.y = (double)MaxY; }
-
-	if (pos.y > MaxY) { pos.y = 0.0; }
-}
-
-//returns true if the point p is not inside the region defined by top_left
-//and bot_rgt
-inline bool NotInsideRegion(Vector2D p,
-	Vector2D top_left,
-	Vector2D bot_rgt)
-{
-	return (p.x < top_left.x) || (p.x > bot_rgt.x) ||
-		(p.y < top_left.y) || (p.y > bot_rgt.y);
-}
-
-inline bool InsideRegion(Vector2D p,
-	Vector2D top_left,
-	Vector2D bot_rgt)
-{
-	return !((p.x < top_left.x) || (p.x > bot_rgt.x) ||
-		(p.y < top_left.y) || (p.y > bot_rgt.y));
-}
-
-inline bool InsideRegion(Vector2D p, int left, int top, int right, int bottom)
-{
-	return !((p.x < left) || (p.x > right) || (p.y < top) || (p.y > bottom));
-}
-
-//------------------ isSecondInFOVOfFirst -------------------------------------
-//
-//  returns true if the target position is in the field of view of the entity
-//  positioned at posFirst facing in facingFirst
-//-----------------------------------------------------------------------------
-inline bool isSecondInFOVOfFirst(Vector2D posFirst,
-	Vector2D facingFirst,
-	Vector2D posSecond,
-	double    fov)
-{
-	Vector2D toTarget = Vec2DNormalize(posSecond - posFirst);
-
-	return facingFirst.Dot(toTarget) >= cos(fov / 2.0);
-}
 
 

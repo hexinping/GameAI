@@ -21,8 +21,8 @@ Scene* MineScene::createScene()
 bool MineScene::init()
 {
     
-	_pMiner = new Miner(ent_Miner_Bob);
-	_pMinerWife = new MinerWife(ent_Elsa);
+	_pMiner = new Miner();
+	_pMinerWife = new MinerWife();
 
 	this->scheduleUpdate();
 

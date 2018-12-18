@@ -17,7 +17,7 @@ const int TirednessThreshold = 5;
 class Miner : public BaseGameEntity
 {
 public:
-	Miner(int id);
+	Miner();
 
 	~Miner(){ delete m_pStateMachine; }
 	StateMachine<Miner>*  GetFSM()const{ return m_pStateMachine; }
