@@ -18,10 +18,11 @@ bool MovingEntityScene::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto s = VehicleSprite::create("HelloWorld.png");
+	VehicleSprite *s = VehicleSprite::create("");
 
 	this->addChild(s);
 	s->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+
 
 	this->scheduleUpdate();
 

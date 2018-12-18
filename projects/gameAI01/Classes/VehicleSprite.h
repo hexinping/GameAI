@@ -7,7 +7,9 @@ class VehicleSprite :public Sprite
 public:
 	VehicleSprite();
 	~VehicleSprite();
+	static VehicleSprite* create(const std::string& file);
 
+	bool initWithFile(const std::string& file);
 public:
 	Vehicle *m_pVehicle;
 };
