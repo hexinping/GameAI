@@ -52,6 +52,7 @@ public:
 		m_dMaxForce(max_force)
 	{
 		m_vScale = scale;
+		m_pStateMachine = new StateMachine<MovingEntity>(this);
 	}
 
 

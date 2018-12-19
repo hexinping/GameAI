@@ -3,6 +3,7 @@
 #include "enity/MovingEntity.h"
 #include "enity/Vehicle.h"
 #include "VehicleSprite.h"
+#include "common/2D/Vector2D.h"
 
 USING_NS_CC;
 
@@ -18,10 +19,10 @@ bool MovingEntityScene::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	VehicleSprite *s = VehicleSprite::create("");
+	VehicleSprite *s = VehicleSprite::create("", Vector2D(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
 	this->addChild(s);
-	s->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	//s->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
 
 	this->scheduleUpdate();

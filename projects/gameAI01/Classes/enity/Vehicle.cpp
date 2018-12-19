@@ -91,8 +91,10 @@ void Vehicle::Update(double time_elapsed)
   //update the heading if the vehicle has a non zero velocity
   if (m_vVelocity.LengthSq() > 0.00000001)
   {    
+	 //因为交通工具的朝向总是跟速度一致，所以需要更新，使其等于速度的标准向量
     m_vHeading = Vec2DNormalize(m_vVelocity);
 
+	//计算出垂直于朝向的平面
     m_vSide = m_vHeading.Perp();
   }
 
