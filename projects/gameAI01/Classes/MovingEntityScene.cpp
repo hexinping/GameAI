@@ -18,12 +18,11 @@ bool MovingEntityScene::init()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	m_pGameWorld = new GameWorld(visibleSize.width, visibleSize.height);
 
-	VehicleSprite *s = VehicleSprite::create("", Vector2D(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	m_pVehicleSprite = VehicleSprite::create("", Vector2D(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y), m_pGameWorld);
 
-	this->addChild(s);
-	//s->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-
+	this->addChild(m_pVehicleSprite);
 
 	this->scheduleUpdate();
 
@@ -33,13 +32,12 @@ bool MovingEntityScene::init()
 
 void MovingEntityScene::update(float dt)
 {
-	//CCLOG("baibai");
 	sleepTime = sleepTime + dt;
-	if (sleepTime>=1.0)
+	if (sleepTime >= 0.01)
 	{
 		sleepTime = 0;
-		
 
+		m_pVehicleSprite->updateS(dt);
 		Dispatch->DispatchDelayedMessages();
 	}
 }
@@ -47,5 +45,15 @@ void MovingEntityScene::update(float dt)
 MovingEntityScene::~MovingEntityScene()
 {
 
-	
+	if (m_pVehicleSprite)
+	{
+		delete m_pVehicleSprite;
+		m_pVehicleSprite = nullptr;
+	}
+
+	if (m_pGameWorld)
+	{
+		delete m_pGameWorld;
+		m_pGameWorld = nullptr;
+	}
 }

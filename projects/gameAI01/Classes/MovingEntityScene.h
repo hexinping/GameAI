@@ -1,6 +1,7 @@
 #ifndef __MovingEntityScene_SCENE_H__
 #define __MovingEntityScene_SCENE_H__
-
+#include "VehicleSprite.h"
+#include "GameWorld.h"
 #include "cocos2d.h"
 
 class MovingEntityScene : public cocos2d::Scene
@@ -20,6 +21,9 @@ public:
 public:
 	
 	float sleepTime = 0.0;
+
+	VehicleSprite *m_pVehicleSprite = nullptr;
+	GameWorld *m_pGameWorld = nullptr;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

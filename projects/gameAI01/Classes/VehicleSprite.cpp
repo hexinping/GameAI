@@ -4,9 +4,9 @@
 #define DrawTest 1;
 #define DrawBorder 0;
 
-VehicleSprite* VehicleSprite::create(const std::string& filename, Vector2D pos)
+VehicleSprite* VehicleSprite::create(const std::string& filename, Vector2D pos,GameWorld *gameWorld)
 {
-	VehicleSprite *sprite = new (std::nothrow) VehicleSprite(pos);
+	VehicleSprite *sprite = new (std::nothrow) VehicleSprite(pos, gameWorld);
 	if (sprite && sprite->initWithFile(filename))
 	{
 		sprite->autorelease();
@@ -20,16 +20,36 @@ VehicleSprite* VehicleSprite::create(const std::string& filename, Vector2D pos)
 bool VehicleSprite::initWithFile(const std::string& file)
 {
 	Sprite::initWithFile(file);
-
+	Vector2D pos = m_pVehicle->Pos();
+	this->setPosition(pos.x, pos.y);
 #if DrawTest
 
-
-	Vector2D pos = m_pVehicle->Pos();
 	Vector2D velocity = m_pVehicle->Velocity();
-	float angle = 0;
-	if (!velocity.isZero() && velocity.x!=0)
+	const float EPSINON = 0.00001;
+	
+	bool isX0 = false;
+	if ((velocity.x >= -EPSINON) && (velocity.x <= EPSINON))
 	{
-		angle = atan(velocity.y / velocity.x) * 180 / pi;
+		isX0 = true;
+	}
+
+	bool isY0 = false;
+	if ((velocity.y >= -EPSINON) && (velocity.y <= EPSINON))
+	{
+		isY0 = true;
+	}
+	float angle = 0;
+	if (!velocity.isZero() && !isX0)
+	{
+		
+		if (isY0)
+		{
+			angle = 90;
+		}
+		else
+		{
+			angle = atan(velocity.y / velocity.x) * 180 / pi;
+		}
 	}
 	float L = 30;
 
@@ -40,7 +60,7 @@ bool VehicleSprite::initWithFile(const std::string& file)
 	Color4F color(1, 0, 0, 1);
 	auto drawNode = DrawNode::create();
 	this->addChild(drawNode, 1);
-	drawNode->setPosition(pos.x,pos.y);
+	
 	Color4F color1(1, 1, 0, 1);
 	drawNode->drawLine(p1, p2, color);
 	drawNode->drawLine(p1, p3, color);
@@ -68,21 +88,34 @@ bool VehicleSprite::initWithFile(const std::string& file)
 	return true;
 }
 
-VehicleSprite::VehicleSprite(Vector2D pos) :
+VehicleSprite::VehicleSprite(Vector2D pos, GameWorld *gameWorld) :
 m_pVehicle(nullptr)
 {
-	
-	m_pVehicle = new Vehicle(nullptr,
+
+	m_pVehicle = new Vehicle(gameWorld,
 		pos,                 //initial position
 		RandFloat()*TwoPi,        //start rotation
-		Vector2D(0, 0),            //velocity
+		Vector2D(10, 0),            //velocity
 		Prm.VehicleMass,          //mass
 		Prm.MaxSteeringForce,     //max force
 		Prm.MaxSpeed,             //max velocity
 		Prm.MaxTurnRatePerSecond, //max turn rate
 		Prm.VehicleScale);        //scale
+
+	
 }
 
+
+void VehicleSprite::updateS(float dt)
+{
+	if (m_pVehicle)
+	{
+		m_pVehicle->Update(dt);
+		Vector2D pos = m_pVehicle->Pos();
+		this->setPosition(pos.x, pos.y);
+
+	}
+}
 
 VehicleSprite::~VehicleSprite()
 {

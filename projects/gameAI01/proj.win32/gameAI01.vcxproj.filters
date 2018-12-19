@@ -84,9 +84,6 @@
     <ClCompile Include="..\Classes\common\time\PrecisionTimer.cpp">
       <Filter>src\time</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\enity\Vehicle.cpp">
-      <Filter>src\enity</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\behaviors\SteeringBehaviors.cpp">
       <Filter>src\behaviors</Filter>
     </ClCompile>
@@ -113,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\VehicleSprite.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\enity\Vehicle.cpp">
+      <Filter>src\enity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
