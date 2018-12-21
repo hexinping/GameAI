@@ -11,7 +11,9 @@ class MovingEntity : public BaseGameEntity
 public:
 	MovingEntity();
 
-	virtual ~MovingEntity(){ delete m_pStateMachine; }
+	virtual ~MovingEntity(){ 
+		delete m_pStateMachine; 
+	}
 	StateMachine<MovingEntity>*  GetFSM()const{ return m_pStateMachine; }
 
 	void Update(float t);

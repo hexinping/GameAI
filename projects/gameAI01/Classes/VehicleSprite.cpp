@@ -1,6 +1,7 @@
 #include "VehicleSprite.h"
 #include "2d/CCDrawNode.h"
 #include "ParamLoader.h"
+#include "behaviors/SteeringBehaviors.h"
 #define DrawTest 1;
 #define DrawBorder 0;
 
@@ -24,53 +25,24 @@ bool VehicleSprite::initWithFile(const std::string& file)
 	this->setPosition(pos.x, pos.y);
 #if DrawTest
 
-	Vector2D velocity = m_pVehicle->Velocity();
-	const float EPSINON = 0.00001;
-	
-	bool isX0 = false;
-	if ((velocity.x >= -EPSINON) && (velocity.x <= EPSINON))
-	{
-		isX0 = true;
-	}
-
-	bool isY0 = false;
-	if ((velocity.y >= -EPSINON) && (velocity.y <= EPSINON))
-	{
-		isY0 = true;
-	}
-	float angle = 0;
-	if (!velocity.isZero() && !isX0)
-	{
-		
-		if (isY0)
-		{
-			angle = 90;
-		}
-		else
-		{
-			angle = atan(velocity.y / velocity.x) * 180 / pi;
-		}
-	}
-	float L = 30;
-
-	//以中心点为原点
-	Vec2 p1(-L/2, -L/2*tan(pi / 6));
-	Vec2 p2(L/2, -L/2*tan(pi / 6));
-	Vec2 p3(0, L*sin(pi / 3) - L / 2 * tan(pi / 6));
+	float L = 60;
+	Vec2 center(0,0);
+	float h = L/2 * tan(pi/6);
+	float H = L * sin(pi/3);
+	Vec2 p1 = Vec2(-h,L/2);
+	Vec2 p2 = Vec2(-h,-L/2);
+	Vec2 p3 = Vec2(H-h,0);
 	Color4F color(1, 0, 0, 1);
 	auto drawNode = DrawNode::create();
 	this->addChild(drawNode, 1);
-	
-	Color4F color1(1, 1, 0, 1);
 	drawNode->drawLine(p1, p2, color);
 	drawNode->drawLine(p1, p3, color);
 	drawNode->drawLine(p3, p2, color);
 
-	drawNode->drawPoint(Vec2(0,0), 2, color1);
-
-	drawNode->drawLine(p3, Vec2(p3.x,p3.y+5), color1);
-	drawNode->setRotation(angle); //以中心点顺时针旋转
-
+	Color4F color1(1, 1, 0, 1);
+	drawNode->drawPoint(center, 2, color1);
+	drawNode->drawLine(p3, Vec2(p3.x + 5, p3.y), color1);
+	this->setHead(m_pVehicle->Heading());
 #if DrawBorder
 	auto drawNodeBorder = DrawNode::create();
 	this->addChild(drawNodeBorder, 1);
@@ -94,15 +66,18 @@ m_pVehicle(nullptr)
 
 	m_pVehicle = new Vehicle(gameWorld,
 		pos,                 //initial position
-		RandFloat()*TwoPi,        //start rotation
-		Vector2D(10, 0),            //velocity
+		0,        //start rotation
+		Vector2D(1, 0),            //velocity
 		Prm.VehicleMass,          //mass
 		Prm.MaxSteeringForce,     //max force
 		Prm.MaxSpeed,             //max velocity
 		Prm.MaxTurnRatePerSecond, //max turn rate
 		Prm.VehicleScale);        //scale
 
-	
+	m_pVehicle->Update(0);
+	m_pVehicle->World()->SetCrosshair(Vector2D(512 + 100, 364 + 200));
+	m_pVehicle->Steering()->SeekOn();
+	//m_pVehicle->Steering()->ArriveOn();
 }
 
 
@@ -110,13 +85,94 @@ void VehicleSprite::updateS(float dt)
 {
 	if (m_pVehicle)
 	{
-		m_pVehicle->Update(dt);
+		
 		Vector2D pos = m_pVehicle->Pos();
+		Vector2D targetPos = m_pVehicle->World()->Crosshair();
+		CCLOG("posx posy targetposx targetposy: %f, %f, %f, %f", pos.x, pos.y, targetPos.x, targetPos.y);
+		if (pos.x >= targetPos.x)
+		{
+			m_pVehicle->SetVelocity(Vector2D(0, 0));
+			return;
+		}
+		m_pVehicle->Update(dt);
+		Vector2D head = m_pVehicle->Heading();
 		this->setPosition(pos.x, pos.y);
+		this->setHead(head);
 
 	}
 }
 
+void VehicleSprite::setHead(Vector2D head)
+{
+	const float EPSINON = 0.00001;
+
+	bool isX0 = false;
+	if ((head.x >= -EPSINON) && (head.x <= EPSINON))
+	{
+		isX0 = true;
+	}
+
+	bool isY0 = false;
+	if ((head.y >= -EPSINON) && (head.y <= EPSINON))
+	{
+		isY0 = true;
+	}
+	float angle = 0;
+
+	if (!isX0 && !isY0)
+	{
+		float a = head.y / head.x;
+		angle = atan(a) * 180 / pi;
+		if (a<0)
+		{
+			if (head.x<0)
+			{
+				angle = 180 - angle;
+			}
+			else
+			{
+				angle = -angle;
+			}
+		}
+		else
+		{
+			if (head.x<0)
+			{
+				angle = -180-angle;
+			}
+			else
+			{
+				angle = -angle;
+			}
+			
+		}
+	}
+	else if (isX0 && !isY0)
+	{
+		if (head.y > 0)
+		{
+			angle = -90;
+		}
+		else
+		{
+			angle = 90;
+		}
+		
+	}
+	else if (isY0)
+	{
+		if (head.x>0)
+		{
+			angle = 0;
+		}
+		else
+		{
+			angle = -180;
+		}
+		
+	}
+	this->setRotation(angle);
+}
 VehicleSprite::~VehicleSprite()
 {
 	if (m_pVehicle)
@@ -124,4 +180,5 @@ VehicleSprite::~VehicleSprite()
 		delete m_pVehicle;
 		m_pVehicle = nullptr;
 	}
+
 }

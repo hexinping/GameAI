@@ -14,6 +14,8 @@ public:
 	bool initWithFile(const std::string& file);
 
 	void updateS(float dt);
+
+	void setHead(Vector2D head);
 public:
 	Vehicle *m_pVehicle;
 };

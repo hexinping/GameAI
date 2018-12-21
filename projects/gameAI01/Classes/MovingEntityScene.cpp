@@ -44,13 +44,7 @@ void MovingEntityScene::update(float dt)
 
 MovingEntityScene::~MovingEntityScene()
 {
-
-	if (m_pVehicleSprite)
-	{
-		delete m_pVehicleSprite;
-		m_pVehicleSprite = nullptr;
-	}
-
+	this->unscheduleUpdate();
 	if (m_pGameWorld)
 	{
 		delete m_pGameWorld;
