@@ -2,6 +2,7 @@
 #include "2d/CCDrawNode.h"
 #include "ParamLoader.h"
 #include "behaviors/SteeringBehaviors.h"
+#include <math.h>
 #define DrawTest 1;
 #define DrawBorder 0;
 
@@ -88,7 +89,7 @@ m_state(EState::None)
 
 	//设置状态，不同状态获得不同的效果
 	//m_state = EState::Seek;
-	m_state = EState::Flee;
+	m_state = EState::Arrive;
 	//m_targetPos = Vector2D(pos.x + 200, pos.y + 200);
 
 }
@@ -119,6 +120,11 @@ void VehicleSprite::updateS(float dt)
 
 		///////////////////////////////////////////////
 		if (m_state ==EState::Seek && isSeekOver())
+		{
+			return;
+		}
+
+		if (m_state == EState::Arrive && isArriveOver())
 		{
 			return;
 		}
@@ -202,7 +208,9 @@ Vector2D VehicleSprite::seekForce(Vector2D TargetPos)
 	Vector2D DesiredVelocity = Vec2DNormalize(TargetPos - this->getPos())
 		* m_dMaxSpeed;
 
-	return (DesiredVelocity - m_vVelocity);
+	Vector2D force = DesiredVelocity - m_vVelocity;
+	this->accumulateForce(m_vSteeringForce, force);
+	return m_vSteeringForce;
 }
 
 //返回flee的力
@@ -220,13 +228,62 @@ Vector2D VehicleSprite::fleeForce(Vector2D TargetPos)
 
 	Vector2D DesiredVelocity = Vec2DNormalize(this->getPos() - TargetPos)
 		* m_dMaxSpeed;
+	Vector2D force = DesiredVelocity - m_vVelocity;
+	this->accumulateForce(m_vSteeringForce, force);
+	return m_vSteeringForce;
+}
 
-	return (DesiredVelocity - m_vVelocity);
+
+Vector2D VehicleSprite::arriveForce(Vector2D TargetPos, Deceleration deceleration)
+{
+
+	Vector2D ToTarget = TargetPos - this->getPos();
+
+	//计算当前位置离目标的距离
+	double dist = ToTarget.Length();
+
+	if (dist > 0)
+	{
+		
+		//因为Deceleration是整数，所以需要这个值提供调整减速度
+		const double DecelerationTweaker = 0.5;
+
+		
+		//给定预期减速度，计算能达到目标位置需要速度
+		double speed = dist / ((double)deceleration * DecelerationTweaker);
+
+		//make sure the velocity does not exceed the max
+		speed = fmin(speed, m_dMaxSpeed);
+
+		//from here proceed just like Seek except we don't need to normalize 
+		//the ToTarget vector because we have already gone to the trouble
+		//of calculating its length: dist. 
+		Vector2D DesiredVelocity = ToTarget * speed / dist;
+
+
+		Vector2D force = DesiredVelocity - m_vVelocity;
+		this->accumulateForce(m_vSteeringForce,force);
+		return m_vSteeringForce * 0.5;
+	}
+
+	return Vector2D(0, 0);
+}
+
+bool VehicleSprite::isArriveOver()
+{
+	bool isOverArray = false;
+
+	if (abs(m_targetPos.x - m_vPos.x) <= 1.0 && abs(m_targetPos.y - m_vPos.y) <= 1.0)
+	{
+		isOverArray = true;
+	}
+	return isOverArray;
 }
 
 //根据不同状态计算合力
 Vector2D VehicleSprite::calculate()
 {
+	m_vSteeringForce.Zero();
 
 	if (m_state == EState::Seek)
 	{
@@ -236,10 +293,50 @@ Vector2D VehicleSprite::calculate()
 	{
 		return fleeForce(m_targetPos);
 	}
+	else if (m_state == EState::Arrive)
+	{
+		return arriveForce(m_targetPos);
+	}
 
 	return Vector2D(0, 0);
 
 }
+
+
+bool VehicleSprite::accumulateForce(Vector2D &RunningTot, Vector2D ForceToAdd)
+{
+
+	//calculate how much steering force the vehicle has used so far
+	float MagnitudeSoFar = RunningTot.Length();
+
+	//calculate how much steering force remains to be used by this vehicle
+	float MagnitudeRemaining = m_maxSteeringForce - MagnitudeSoFar;
+
+	//return false if there is no more force left to use
+	if (MagnitudeRemaining <= 0.0) return false;
+
+	//calculate the magnitude of the force we want to add
+	float MagnitudeToAdd = ForceToAdd.Length();
+
+	//if the magnitude of the sum of ForceToAdd and the running total
+	//does not exceed the maximum force available to this vehicle, just
+	//add together. Otherwise add as much of the ForceToAdd vector is
+	//possible without going over the max.
+	if (MagnitudeToAdd < MagnitudeRemaining)
+	{
+		RunningTot += ForceToAdd;
+	}
+
+	else
+	{
+		//add it to the steering force
+		RunningTot += (Vec2DNormalize(ForceToAdd) * MagnitudeRemaining);
+	}
+
+	return true;
+}
+
+
 void VehicleSprite::setHead(Vector2D head)
 {
 	const float EPSINON = 0.00001;

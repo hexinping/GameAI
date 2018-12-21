@@ -11,7 +11,11 @@ enum EState
 	None,
 	Seek, //靠近
 	Flee, //离开
+	Arrive, //抵达
 };
+
+
+enum Deceleration{ slow = 3, normal = 2, fast = 1 };
 
 
 using namespace cocos2d;
@@ -37,6 +41,12 @@ public:
 
 	//返回离开的力
 	Vector2D fleeForce(Vector2D TargetPos);
+
+	//返回抵达的力
+	Vector2D arriveForce(Vector2D TargetPos,Deceleration deceleration = Deceleration::fast);
+	bool isArriveOver();
+
+	bool accumulateForce(Vector2D &RunningTot, Vector2D ForceToAdd);
 public:
 	Vehicle *m_pVehicle;
 
@@ -49,6 +59,8 @@ public:
 
 	Vector2D m_targetPos;
 	Vector2D m_startPos;
+
+	Vector2D m_vSteeringForce; //当前计算的力
 
 	Vector2D m_vVelocity; //交通体的速度
 	Vector2D m_vPos;      //交通体的位置
