@@ -63,7 +63,7 @@ bool VehicleSprite::initWithFile(const std::string& file)
 
 VehicleSprite::VehicleSprite(Vector2D pos, Vector2D targetPos, GameWorld *gameWorld) :
 m_pVehicle(nullptr),
-m_vVelocity(Vector2D(1, 0)),
+m_vVelocity(Vector2D(0, 0)),
 m_vPos(pos),
 m_startPos(pos),
 m_targetPos(targetPos),
@@ -87,7 +87,7 @@ m_state(EState::None)
 	m_pVehicle->Steering()->SeekOn();
 	//m_pVehicle->Steering()->ArriveOn();
 
-	//ÉèÖÃ×´Ì¬£¬²»Í¬×´Ì¬»ñµÃ²»Í¬µÄĞ§¹û
+	//è®¾ç½®çŠ¶æ€ï¼Œä¸åŒçŠ¶æ€è·å¾—ä¸åŒçš„æ•ˆæœ
 	//m_state = EState::Seek;
 	m_state = EState::Arrive;
 	//m_targetPos = Vector2D(pos.x + 200, pos.y + 200);
@@ -121,47 +121,49 @@ void VehicleSprite::updateS(float dt)
 		///////////////////////////////////////////////
 		if (m_state ==EState::Seek && isSeekOver())
 		{
+			m_vVelocity.Zero();
 			return;
 		}
 
 		if (m_state == EState::Arrive && isArriveOver())
 		{
+			m_vVelocity.Zero();
 			return;
 		}
 
-		//¼ÇÂ¼ÉÏÒ»´Î¸üĞÂµÄËÙ¶È
+		//è®°å½•ä¸Šä¸€æ¬¡æ›´æ–°çš„é€Ÿåº¦
 		Vector2D OldPos = this->getPos();
 
 
-		//¼ÆËã²Ù×÷Á¦
+		//è®¡ç®—æ“ä½œåŠ›
 		Vector2D SteeringForce;
 		SteeringForce = this->calculate();
 
-		//¼ÆËã¼ÓËÙ¶È
+		//è®¡ç®—åŠ é€Ÿåº¦
 		Vector2D acceleration = SteeringForce / m_dMass;
 
-		//¸üĞÂËÙ¶È
+		//æ›´æ–°é€Ÿåº¦
 		m_vVelocity += acceleration * dt;
 
-		//È·±£²»³¬¹ı×î´óËÙ¶È
+		//ç¡®ä¿ä¸è¶…è¿‡æœ€å¤§é€Ÿåº¦
 		m_vVelocity.Truncate(m_dMaxSpeed);
 
-		//¸üĞÂÎ»ÖÃ
+		//æ›´æ–°ä½ç½®
 		m_vPos += m_vVelocity * dt;
 
 		//update the heading if the vehicle has a non zero velocity
 		if (m_vVelocity.LengthSq() > 0.00000001)
 		{
-			//ÒòÎª½»Í¨¹¤¾ßµÄ³¯Ïò×ÜÊÇ¸úËÙ¶ÈÒ»ÖÂ£¬ËùÒÔĞèÒª¸üĞÂ£¬Ê¹ÆäµÈÓÚËÙ¶ÈµÄ±ê×¼ÏòÁ¿
+			//å› ä¸ºäº¤é€šå·¥å…·çš„æœå‘æ€»æ˜¯è·Ÿé€Ÿåº¦ä¸€è‡´ï¼Œæ‰€ä»¥éœ€è¦æ›´æ–°ï¼Œä½¿å…¶ç­‰äºé€Ÿåº¦çš„æ ‡å‡†å‘é‡
 			m_vHeading = Vec2DNormalize(m_vVelocity);
 
-			//¼ÆËã³ö´¹Ö±ÓÚ³¯ÏòµÄÆ½Ãæ
+			//è®¡ç®—å‡ºå‚ç›´äºæœå‘çš„å¹³é¢
 			m_vSide = m_vHeading.Perp();
 		}
 
 		//EnforceNonPenetrationConstraint(this, World()->Agents());
 
-		////±ß½çÅĞ¶Ï  todo
+		////è¾¹ç•Œåˆ¤æ–­  todo
 		//WrapAround(m_vPos, m_pWorld->cxClient(), m_pWorld->cyClient());
 
 		////update the vehicle's current cell if space partitioning is turned on
@@ -202,7 +204,7 @@ bool VehicleSprite::isSeekOver()
 
 	return isOverSeek;
 }
-//·µ»ØseekµÄÁ¦
+//è¿”å›seekçš„åŠ›
 Vector2D VehicleSprite::seekForce(Vector2D TargetPos)
 {
 	Vector2D DesiredVelocity = Vec2DNormalize(TargetPos - this->getPos())
@@ -213,13 +215,13 @@ Vector2D VehicleSprite::seekForce(Vector2D TargetPos)
 	return m_vSteeringForce;
 }
 
-//·µ»ØfleeµÄÁ¦
+//è¿”å›fleeçš„åŠ›
 Vector2D VehicleSprite::fleeForce(Vector2D TargetPos)
 {
 	//only flee if the target is within 'panic distance'. Work in distance
 	//squared space.
 	 const double PanicDistanceSq = 100.0f * 100.0;
-	 //ÔÚÄ¿±êµãÒ»¶¨ÇøÓòÄÚ²Å²úÉúÀë¿ªµÄÁ¦
+	 //åœ¨ç›®æ ‡ç‚¹ä¸€å®šåŒºåŸŸå†…æ‰äº§ç”Ÿç¦»å¼€çš„åŠ›
 	 if (Vec2DDistanceSq(this->getPos(), TargetPos) > PanicDistanceSq)
 	 {
 		 return Vector2D(0, 0);
@@ -239,17 +241,17 @@ Vector2D VehicleSprite::arriveForce(Vector2D TargetPos, Deceleration deceleratio
 
 	Vector2D ToTarget = TargetPos - this->getPos();
 
-	//¼ÆËãµ±Ç°Î»ÖÃÀëÄ¿±êµÄ¾àÀë
+	//è®¡ç®—å½“å‰ä½ç½®ç¦»ç›®æ ‡çš„è·ç¦»
 	double dist = ToTarget.Length();
 
 	if (dist > 0)
 	{
 		
-		//ÒòÎªDecelerationÊÇÕûÊı£¬ËùÒÔĞèÒªÕâ¸öÖµÌá¹©µ÷Õû¼õËÙ¶È
-		const double DecelerationTweaker = 0.5;
+		//å› ä¸ºDecelerationæ˜¯æ•´æ•°ï¼Œæ‰€ä»¥éœ€è¦è¿™ä¸ªå€¼æä¾›è°ƒæ•´å‡é€Ÿåº¦
+		const double DecelerationTweaker = 3.0;
 
 		
-		//¸ø¶¨Ô¤ÆÚ¼õËÙ¶È£¬¼ÆËãÄÜ´ïµ½Ä¿±êÎ»ÖÃĞèÒªËÙ¶È
+		//ç»™å®šé¢„æœŸå‡é€Ÿåº¦ï¼Œè®¡ç®—èƒ½è¾¾åˆ°ç›®æ ‡ä½ç½®éœ€è¦é€Ÿåº¦
 		double speed = dist / ((double)deceleration * DecelerationTweaker);
 
 		//make sure the velocity does not exceed the max
@@ -263,7 +265,7 @@ Vector2D VehicleSprite::arriveForce(Vector2D TargetPos, Deceleration deceleratio
 
 		Vector2D force = DesiredVelocity - m_vVelocity;
 		this->accumulateForce(m_vSteeringForce,force);
-		return m_vSteeringForce * 0.5;
+		return m_vSteeringForce;
 	}
 
 	return Vector2D(0, 0);
@@ -280,7 +282,7 @@ bool VehicleSprite::isArriveOver()
 	return isOverArray;
 }
 
-//¸ù¾İ²»Í¬×´Ì¬¼ÆËãºÏÁ¦
+//æ ¹æ®ä¸åŒçŠ¶æ€è®¡ç®—åˆåŠ›
 Vector2D VehicleSprite::calculate()
 {
 	m_vSteeringForce.Zero();
