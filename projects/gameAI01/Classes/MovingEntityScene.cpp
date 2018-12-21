@@ -7,7 +7,6 @@
 
 USING_NS_CC;
 
-
 Scene* MovingEntityScene::createScene()
 {
 	return MovingEntityScene::create();
@@ -20,9 +19,36 @@ bool MovingEntityScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	m_pGameWorld = new GameWorld(visibleSize.width, visibleSize.height);
 
-	m_pVehicleSprite = VehicleSprite::create("", Vector2D(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y), m_pGameWorld);
+	Vector2D startPos = Vector2D(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
+
+	Vector2D targetPosSeek(startPos.x + 200, startPos.y + 200);
+	Vector2D targetPosFlee(startPos.x + 40, startPos.y + 20);
+
+	m_pVehicleSprite = VehicleSprite::create("", startPos, targetPosFlee, m_pGameWorld);
 
 	this->addChild(m_pVehicleSprite);
+
+	EState state = EState::Flee;
+	Vector2D targetPos;
+	if (state == EState::Seek)
+	{
+		targetPos = targetPosSeek;
+	}
+	else if (state == EState::Flee)
+	{
+		targetPos = targetPosFlee;
+	}
+
+
+	auto drawNode = DrawNode::create();
+	this->addChild(drawNode, 1);
+
+
+	Color4F color1(1, 1, 0, 1);
+	drawNode->drawPoint(Vec2(targetPos.x, targetPos.y), 8, color1);
+
+	drawNode->drawCircle(Vec2(targetPos.x, targetPos.y), 100, 0, 30, false, color1);
+
 
 	this->scheduleUpdate();
 
