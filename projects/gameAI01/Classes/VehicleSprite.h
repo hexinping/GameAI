@@ -14,6 +14,7 @@ enum EState
 	Arrive, //抵达
 	Pursuit, //追逐
 	Evade,   //逃避
+	Wander,  //徘徊
 };
 
 
@@ -33,7 +34,7 @@ public:
 	void updateS(float dt);
 
 	void setHead(Vector2D head);
-	Vector2D calculate();
+	Vector2D calculate(float dt);
 
 	Vector2D getPos(){ return m_vPos; }
 
@@ -56,6 +57,9 @@ public:
 
 	Vector2D evadeForce(VehicleSprite* pursuer);
 	bool isEvadeOver();
+
+	//返回徘徊的力
+	Vector2D wanderForce(float dt);
 
 
 	void setPursuitTarget(VehicleSprite *t){ m_pursuitTarget = t; }
@@ -96,6 +100,22 @@ public:
 	VehicleSprite *m_pursuitTarget;
 	//逃避目标
 	VehicleSprite *m_evaderTarget;
+
+
+	//徘徊相关
+	Vector2D m_vWanderTarget;
+
+	float m_dWanderRadius = 1.2;
+	//wander圈凸出在前面的距离
+	float m_dWanderDistance = 2.0;
+
+	//每一帧的最大位移量
+	 float m_dWanderJitter = 80.0;
+
+
+
+	 DrawNode *m_drawNode;
+
 
 };
 

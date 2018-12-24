@@ -63,12 +63,13 @@ bool VehicleSprite::initWithFile(const std::string& file)
 
 VehicleSprite::VehicleSprite(Vector2D pos, Vector2D targetPos, GameWorld *gameWorld) :
 m_pVehicle(nullptr),
-m_vVelocity(Vector2D(0, 0)),
+m_vVelocity(Vector2D(1, 0)),
 m_vPos(pos),
 m_startPos(pos),
 m_targetPos(targetPos),
 m_vHeading(Vector2D(0, 0)),
 m_vSide(Vector2D(0, 0)),
+m_vWanderTarget(Vector2D(0, 0)),
 m_state(EState::None)
 {
 
@@ -96,6 +97,17 @@ m_state(EState::None)
 	//m_targetPos = Vector2D(pos.x + 200, pos.y + 200);
 
 
+
+	
+
+	//在徘徊圆上为目标位置创建一个向量
+	double theta = RandFloat() * TwoPi;
+	m_vWanderTarget = Vector2D(m_dWanderRadius * cos(theta),
+		m_dWanderRadius * sin(theta));
+
+	
+	m_drawNode = DrawNode::create();
+	this->addChild(m_drawNode);
 }
 
 
@@ -158,7 +170,7 @@ void VehicleSprite::updateS(float dt)
 
 		//计算操作力
 		Vector2D SteeringForce;
-		SteeringForce = this->calculate();
+		SteeringForce = this->calculate(dt);
 
 		//计算加速度
 		Vector2D acceleration = SteeringForce / m_dMass;
@@ -408,8 +420,49 @@ bool VehicleSprite::isEvadeOver()
 	return true;
 }
 
+Vector2D VehicleSprite::wanderForce(float dt)
+{
+	// 按照我的设计就应该在某个区域内随机走动而不是每次都朝前方
+
+
+
+	double JitterThisTimeSlice = m_dWanderJitter * dt;
+
+	//加一个小的随机向量到目标位置
+	 m_vWanderTarget += Vector2D(RandomClamped() * JitterThisTimeSlice,
+		RandomClamped() * JitterThisTimeSlice);
+
+	//把这个新的向量重新投影到单位圆上
+	m_vWanderTarget.Normalize();
+
+	//使向量的长度增加warder圈的半径
+	m_vWanderTarget *= m_dWanderRadius;
+
+	//移动目标到智能体前面warderdist位置
+	Vector2D t = Vector2D(m_dWanderDistance, 0);
+	//t.Normalize();  是否需要正规化？？
+	Vector2D target = m_vWanderTarget + t;
+
+	//转换到世界空间
+	Vector2D Target = PointToWorldSpace(target,
+		m_vHeading,
+		m_vSide,
+		m_vPos);
+
+	//and steer towards it
+
+	m_drawNode->clear();
+
+	Color4F color(1, 0, 1, 1);
+	Color4F color1(1, 1, 0, 1);
+	m_drawNode->drawPoint(Vec2(Target.x - m_startPos.x, Target.y - m_startPos.y), 8, color);
+	m_drawNode->drawCircle(Vec2(Target.x - m_startPos.x, Target.y - m_startPos.y), m_dWanderRadius*10, 0, 30, false, color1);
+	return Target - m_vPos;
+}
+
+
 //根据不同状态计算合力
-Vector2D VehicleSprite::calculate()
+Vector2D VehicleSprite::calculate(float dt)
 {
 	m_vSteeringForce.Zero();
 
@@ -419,6 +472,7 @@ Vector2D VehicleSprite::calculate()
 	float ArriveWeight = 1.0;
 	float PursuitWeight = 1.0;
 	float EvaderWeight = 1.0;
+	float WanderWeight = 1.0;
 
 	if (m_state == EState::Seek)
 	{
@@ -439,6 +493,10 @@ Vector2D VehicleSprite::calculate()
 	else if (m_state== EState::Evade)
 	{
 		return evadeForce(m_evaderTarget)*EvaderWeight;
+	}
+	else if (m_state == EState::Wander)
+	{
+		return wanderForce(dt)*WanderWeight;
 	}
 	return Vector2D(0, 0);
 
