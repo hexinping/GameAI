@@ -87,6 +87,9 @@ m_state(EState::None)
 	m_pVehicle->Steering()->SeekOn();
 	//m_pVehicle->Steering()->ArriveOn();
 
+	m_cxClient = gameWorld->cxClient();
+	m_cyClient = gameWorld->cyClient();
+
 	//设置状态，不同状态获得不同的效果
 	//m_state = EState::Seek;
 	//m_state = EState::Arrive;
@@ -141,6 +144,12 @@ void VehicleSprite::updateS(float dt)
 			return;
 		}
 
+		if (m_state == EState::Evade && isEvadeOver())
+		{
+			m_vVelocity.Zero();
+			return;
+		}
+
 
 
 		//记录上一次更新的速度
@@ -176,7 +185,7 @@ void VehicleSprite::updateS(float dt)
 		//EnforceNonPenetrationConstraint(this, World()->Agents());
 
 		////边界判断  todo
-		//WrapAround(m_vPos, m_pWorld->cxClient(), m_pWorld->cyClient());
+		wapAround(m_vPos, m_cxClient, m_cyClient);
 
 		////update the vehicle's current cell if space partitioning is turned on
 		//if (Steering()->isSpacePartitioningOn())
@@ -194,6 +203,18 @@ void VehicleSprite::updateS(float dt)
 		this->setHead(m_vHeading);
 
 	}
+}
+
+
+void VehicleSprite::wapAround(Vector2D &pos, int MaxX, int MaxY)
+{
+	if (pos.x > MaxX) { pos.x = 0.0; }
+
+	if (pos.x < 0)    { pos.x = (double)MaxX; }
+
+	if (pos.y < 0)    { pos.y = (double)MaxY; }
+
+	if (pos.y > MaxY) { pos.y = 0.0; }
 }
 
 bool VehicleSprite::isSeekOver()
@@ -308,6 +329,7 @@ Vector2D VehicleSprite::pursuitForce( VehicleSprite* evader)
 		(RelativeHeading < -0.95))  //acos(0.95)=18 degs
 	{
 		return seekForce(evader->getPos());
+		//return arriveForce(evader->getPos());
 	}
 
 
@@ -316,8 +338,29 @@ Vector2D VehicleSprite::pursuitForce( VehicleSprite* evader)
 	double LookAheadTime = ToEvader.Length() /
 		(m_dMaxSpeed + evader->m_vVelocity.Length());
 
+	//double LookAheadTime = turnAroundTime(m_pursuitTarget->getPos());
+
 	//靠近逃避者被预测的位置
 	return seekForce(evader->getPos() + evader->m_vVelocity * LookAheadTime);
+	//感觉arrvive效果好点
+	//return arriveForce(evader->getPos() + evader->m_vVelocity * LookAheadTime);
+
+}
+
+float VehicleSprite::turnAroundTime(Vector2D targetPos)
+{
+	//确定目标的标准化向量
+	Vector2D toTarget = Vec2DNormalize(targetPos - m_vPos);
+
+	//改变这个值的预期行为
+	//交通工具的最大转弯率越高，这个值就越大
+	//如果交通体正朝向到目标位置的反方向，那么0.5这个值意味着这个函数返回1秒时间可以让交通体转弯
+	float  dot = m_vHeading.Dot(toTarget);
+
+	const double coefficient = 0.5;
+
+	//如果目标直接在前面，点积为1，如果目标直接在后面，点积为-1
+	return (dot - 1.0) * (-coefficient);
 }
 
 bool VehicleSprite::isPursuitOver()
@@ -336,7 +379,34 @@ bool VehicleSprite::isPursuitOver()
 	return isOver;
 }
 
+Vector2D VehicleSprite::evadeForce(VehicleSprite* pursuer)
+{
 
+	Vector2D ToPursuer = pursuer->getPos() - m_vPos;
+
+	//设置逃避距离
+	const double ThreatRange = 200.0;
+	if (ToPursuer.LengthSq() > ThreatRange * ThreatRange) return Vector2D();
+
+	double LookAheadTime = ToPursuer.Length() /
+		(m_pVehicle->MaxSpeed() + pursuer->m_vVelocity.Length());
+
+	return fleeForce(pursuer->getPos() + pursuer->m_vVelocity * LookAheadTime);
+}
+
+bool VehicleSprite::isEvadeOver()
+{
+	//被追逐者追上就停止
+
+	Vector2D pursuitPos = m_evaderTarget->getPos();
+	Vector2D ToPursuer = pursuitPos - m_vPos;
+	const double ThreatRange = 10;
+	if (ToPursuer.LengthSq() > ThreatRange * ThreatRange)
+	{
+		return false;
+	}
+	return true;
+}
 
 //根据不同状态计算合力
 Vector2D VehicleSprite::calculate()
@@ -348,7 +418,7 @@ Vector2D VehicleSprite::calculate()
 	float FleeWeight = 1.0;
 	float ArriveWeight = 1.0;
 	float PursuitWeight = 1.0;
-
+	float EvaderWeight = 1.0;
 
 	if (m_state == EState::Seek)
 	{
@@ -365,6 +435,10 @@ Vector2D VehicleSprite::calculate()
 	else if (m_state == EState::Pursuit)
 	{
 		return pursuitForce(m_pursuitTarget)*PursuitWeight;
+	}
+	else if (m_state== EState::Evade)
+	{
+		return evadeForce(m_evaderTarget)*EvaderWeight;
 	}
 	return Vector2D(0, 0);
 

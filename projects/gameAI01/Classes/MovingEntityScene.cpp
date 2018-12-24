@@ -26,7 +26,7 @@ bool MovingEntityScene::init()
 	Vector2D targetPosArrive(startPos.x + 200, startPos.y + 200);
 	
 
-	m_pVehicleSprite = VehicleSprite::create("", startPos, targetPosArrive, m_pGameWorld);
+	m_pVehicleSprite = VehicleSprite::create("", Vector2D(startPos.x - 100, startPos.y), targetPosArrive, m_pGameWorld);
 
 	this->addChild(m_pVehicleSprite);
 	m_pVehicleSprite->setCurstate(EState::Pursuit);
@@ -34,11 +34,12 @@ bool MovingEntityScene::init()
 	
 
 	//////////////////////////////////////
-	VehicleSprite *test = VehicleSprite::create("", targetPosArrive, Vector2D(targetPosArrive.x - 250, targetPosArrive.y+50), m_pGameWorld);
+	VehicleSprite *test = VehicleSprite::create("", startPos, Vector2D(targetPosArrive.x - 250, targetPosArrive.y + 50), m_pGameWorld);
 	this->addChild(test);
-	test->setCurstate(EState::Seek);
+	test->setCurstate(EState::Evade);
 
 	m_pVehicleSprite->setPursuitTarget(test);
+	test->setEvaderTarget(m_pVehicleSprite);
 	/////////////////////////////////////
 
 
@@ -96,6 +97,7 @@ void MovingEntityScene::update(float dt)
 MovingEntityScene::~MovingEntityScene()
 {
 	this->unscheduleUpdate();
+	m_vector.clear();
 	if (m_pGameWorld)
 	{
 		delete m_pGameWorld;

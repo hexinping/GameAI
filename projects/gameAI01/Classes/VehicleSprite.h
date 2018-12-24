@@ -13,6 +13,7 @@ enum EState
 	Flee, //离开
 	Arrive, //抵达
 	Pursuit, //追逐
+	Evade,   //逃避
 };
 
 
@@ -53,16 +54,28 @@ public:
 	Vector2D pursuitForce( VehicleSprite* evader);
 	bool isPursuitOver();
 
+	Vector2D evadeForce(VehicleSprite* pursuer);
+	bool isEvadeOver();
+
 
 	void setPursuitTarget(VehicleSprite *t){ m_pursuitTarget = t; }
 	void setEvaderTarget(VehicleSprite *t){ m_evaderTarget = t; }
 
 	void setCurstate(EState s){ m_state = s; };
 
+	float turnAroundTime(Vector2D targetPos);
+
+	//边界控制
+	void wapAround(Vector2D &pos, int MaxX, int MaxY);
+
 public:
 	Vehicle *m_pVehicle;
 
 	EState m_state;
+
+	//边界最大x 最大y
+	float m_cxClient;
+	float m_cyClient;
 
 	//运动学相关变量
 	float m_dMass = 1.0; //质量
