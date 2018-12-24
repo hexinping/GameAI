@@ -108,11 +108,11 @@
     <ClCompile Include="..\Classes\common\2D\Vector2D.cpp">
       <Filter>src\2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\VehicleSprite.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\enity\Vehicle.cpp">
       <Filter>src\enity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\VehicleSprite.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

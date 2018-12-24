@@ -3,6 +3,7 @@
 #include "VehicleSprite.h"
 #include "GameWorld.h"
 #include "cocos2d.h"
+#include <vector>
 
 class MovingEntityScene : public cocos2d::Scene
 {
@@ -24,6 +25,10 @@ public:
 
 	VehicleSprite *m_pVehicleSprite = nullptr;
 	GameWorld *m_pGameWorld = nullptr;
+
+	std::vector <VehicleSprite*> m_vector;
+
+
 };
 
 #endif // __HELLOWORLD_SCENE_H__

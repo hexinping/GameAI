@@ -12,6 +12,7 @@ enum EState
 	Seek, //靠近
 	Flee, //离开
 	Arrive, //抵达
+	Pursuit, //追逐
 };
 
 
@@ -47,6 +48,17 @@ public:
 	bool isArriveOver();
 
 	bool accumulateForce(Vector2D &RunningTot, Vector2D ForceToAdd);
+
+	//返回追逐的力：目标为预测位置
+	Vector2D pursuitForce( VehicleSprite* evader);
+	bool isPursuitOver();
+
+
+	void setPursuitTarget(VehicleSprite *t){ m_pursuitTarget = t; }
+	void setEvaderTarget(VehicleSprite *t){ m_evaderTarget = t; }
+
+	void setCurstate(EState s){ m_state = s; };
+
 public:
 	Vehicle *m_pVehicle;
 
@@ -66,5 +78,11 @@ public:
 	Vector2D m_vPos;      //交通体的位置
 	Vector2D m_vHeading;  //朝向
 	Vector2D m_vSide;     //垂直朝向的平面
+
+	//追逐目标 
+	VehicleSprite *m_pursuitTarget;
+	//逃避目标
+	VehicleSprite *m_evaderTarget;
+
 };
 

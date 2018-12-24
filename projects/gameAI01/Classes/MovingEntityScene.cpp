@@ -24,16 +24,33 @@ bool MovingEntityScene::init()
 	Vector2D targetPosSeek(startPos.x + 200, startPos.y + 200);
 	Vector2D targetPosFlee(startPos.x + 40, startPos.y + 20);
 	Vector2D targetPosArrive(startPos.x + 200, startPos.y + 200);
+	
 
 	m_pVehicleSprite = VehicleSprite::create("", startPos, targetPosArrive, m_pGameWorld);
 
 	this->addChild(m_pVehicleSprite);
+	m_pVehicleSprite->setCurstate(EState::Pursuit);
+
+	
+
+	//////////////////////////////////////
+	VehicleSprite *test = VehicleSprite::create("", targetPosArrive, Vector2D(targetPosArrive.x - 250, targetPosArrive.y+50), m_pGameWorld);
+	this->addChild(test);
+	test->setCurstate(EState::Seek);
+
+	m_pVehicleSprite->setPursuitTarget(test);
+	/////////////////////////////////////
+
+
+	m_vector.push_back(m_pVehicleSprite);
+	m_vector.push_back(test);
+
 
 	auto drawNode = DrawNode::create();
 	this->addChild(drawNode, 1);
 	Color4F color1(1, 1, 0, 1);
 
-	EState state = EState::Arrive;
+	EState state = EState::Pursuit;
 	Vector2D targetPos;
 	if (state == EState::Seek)
 	{
@@ -65,7 +82,13 @@ void MovingEntityScene::update(float dt)
 	{
 		sleepTime = 0;
 
-		m_pVehicleSprite->updateS(dt);
+		for (int i = 0; i < m_vector.size();i++)
+		{
+			VehicleSprite *p = m_vector[i];
+			p->updateS(dt);
+		}
+
+		//m_pVehicleSprite->updateS(dt);
 		Dispatch->DispatchDelayedMessages();
 	}
 }

@@ -89,8 +89,9 @@ m_state(EState::None)
 
 	//设置状态，不同状态获得不同的效果
 	//m_state = EState::Seek;
-	m_state = EState::Arrive;
+	//m_state = EState::Arrive;
 	//m_targetPos = Vector2D(pos.x + 200, pos.y + 200);
+
 
 }
 
@@ -115,7 +116,10 @@ void VehicleSprite::updateS(float dt)
 
 
 
-
+		if (m_state == EState::None)
+		{
+			return;
+		}
 
 
 		///////////////////////////////////////////////
@@ -130,6 +134,14 @@ void VehicleSprite::updateS(float dt)
 			m_vVelocity.Zero();
 			return;
 		}
+
+		if (m_state == EState::Pursuit && isPursuitOver())
+		{
+			m_vVelocity.Zero();
+			return;
+		}
+
+
 
 		//记录上一次更新的速度
 		Vector2D OldPos = this->getPos();
@@ -282,24 +294,78 @@ bool VehicleSprite::isArriveOver()
 	return isOverArray;
 }
 
+Vector2D VehicleSprite::pursuitForce( VehicleSprite* evader)
+{
+	//预测逃避目标的移动点
+
+	//如果逃避者在前面而且面对者追逐者，直接靠近逃避者的当前位置
+	Vector2D ToEvader = evader->getPos() - this->getPos();
+
+	double RelativeHeading = m_vHeading.Dot(evader->m_vHeading);
+
+	//如果逃避者在前方。并且相对朝向在20度之内 就直接靠近逃避者位置
+	if ((ToEvader.Dot(m_vHeading) > 0) &&
+		(RelativeHeading < -0.95))  //acos(0.95)=18 degs
+	{
+		return seekForce(evader->getPos());
+	}
+
+
+	//预测逃避者的位置
+	//预测的时间正比于两者的距离，反比于两者的速度大小
+	double LookAheadTime = ToEvader.Length() /
+		(m_dMaxSpeed + evader->m_vVelocity.Length());
+
+	//靠近逃避者被预测的位置
+	return seekForce(evader->getPos() + evader->m_vVelocity * LookAheadTime);
+}
+
+bool VehicleSprite::isPursuitOver()
+{
+	bool isOver = false;
+	Vector2D pursuitPos = m_pursuitTarget->getPos();
+	CCLOG("posx posy pursuitposx pursuitposy==%f,%f,%f,%f",m_vPos.x,m_vPos.y,pursuitPos.x,pursuitPos.y);
+
+	float dis = m_vPos.DistanceSq(pursuitPos);
+
+	if (abs(pursuitPos.x - m_vPos.x) <=5.0  && abs(pursuitPos.y - m_vPos.y) <=5.0)
+	{
+		isOver = true;
+	}
+
+	return isOver;
+}
+
+
+
 //根据不同状态计算合力
 Vector2D VehicleSprite::calculate()
 {
 	m_vSteeringForce.Zero();
 
+	//权重
+	float SeekWeight = 1.0;
+	float FleeWeight = 1.0;
+	float ArriveWeight = 1.0;
+	float PursuitWeight = 1.0;
+
+
 	if (m_state == EState::Seek)
 	{
-		return seekForce(m_targetPos);
+		return seekForce(m_targetPos)*SeekWeight;
 	}
 	else if (m_state == EState::Flee)
 	{
-		return fleeForce(m_targetPos);
+		return fleeForce(m_targetPos)*FleeWeight;
 	}
 	else if (m_state == EState::Arrive)
 	{
-		return arriveForce(m_targetPos);
+		return arriveForce(m_targetPos)*ArriveWeight;
 	}
-
+	else if (m_state == EState::Pursuit)
+	{
+		return pursuitForce(m_pursuitTarget)*PursuitWeight;
+	}
 	return Vector2D(0, 0);
 
 }
