@@ -51,14 +51,18 @@ public:
 		//计算预测值 ： 直着走一格的距离等于10，斜着走一格的距离等于14
 
 		//相对位移x,y取绝对值
+		//int relativex = std::abs(end.x - x);
+		//int relativey = std::abs(end.y - y);
+		////x,y偏移值n
+		//int n = relativex - relativey;
+		////预测值pred = (max–n)*14+n*10+c
+		//pred = std::max(relativex, relativey) * 14 - std::abs(n) * 4 + c;
+
 		int relativex = std::abs(end.x - x);
 		int relativey = std::abs(end.y - y);
-		//x,y偏移值n
-		int n = relativex - relativey;
-		//预测值pred = (max–n)*14+n*10+c
-		pred = std::max(relativex, relativey) * 14 - std::abs(n) * 4 + c;
 
-
+		int H = (relativex + relativey) * 10;
+		pred = c + H;
 
 		/*
 		这个算法我感觉有问题 暂时没法理解
@@ -73,40 +77,6 @@ public:
 		pred = c + H;
 		*/
 	}
-
-	//OpenPoint(const BasePoint &p, const BasePoint &end, int c, OpenPoint *pFather)
-	//{
-	///*	x = p.x;
-	//	y = p.y;*/
-	//	BasePoint(p);
-	//	cost = c;
-	//	father = pFather;
-
-	//	//计算预测值 ： 直着走一格的距离等于10，斜着走一格的距离等于14
-
-	//	//相对位移x,y取绝对值
-	//	int relativex = std::abs(end.x - p.x);
-	//	int relativey = std::abs(end.y - p.y);
-	//	//x,y偏移值n
-	//	int n = relativex - relativey;
-	//	//预测值pred = (max–n)*14+n*10+c
-	//	pred = std::max(relativex, relativey) * 14 - std::abs(n) * 4 + c;
-
-
-
-	//	/*
-	//	这个算法我感觉有问题 暂时没法理解
-	//	c 为到当前点需要的消耗值 ==》G
-
-	//	按正常水平 H = 水平格子数 * 10 + 竖直格子数 * 10
-
-	//	int relativex = std::abs(end.x - p.x);
-	//	int relativey = std::abs(end.y - p.y);
-
-	//	int H = (relativex + relativey)*10;
-	//	pred = c + H;
-	//	*/
-	//}
 
 
 };
@@ -126,7 +96,7 @@ public:
 
 	DrawNode *m_drawNode;
 
-	bool inBarrierAndCloseList(const BasePoint & pos);
+	bool inBarrierAndCloseList(int x, int y);
 
 	//OpenPoint* createOpenPoint(OpenPoint * p, const OpenPoint& end, int c, OpenPoint* fatherp);
 

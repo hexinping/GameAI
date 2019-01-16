@@ -49,30 +49,30 @@ bool AStarScene::init()
 
 void AStarScene::start()
 {
-	OpenPoint start(0,0);
-	OpenPoint end(15, 30);
+	OpenPoint startP(0,0);
+	OpenPoint endP(15, 26);
 
-	int centerx = start.y * cellW + cellW * 0.5;
-	int centery = start.x * cellH + cellH * 0.5;
+	int centerx = startP.y * cellW + cellW * 0.5;
+	int centery = startP.x * cellH + cellH * 0.5;
 	Color4F color1(0, 1, 0, 1);
 	m_drawNode->drawDot(Vec2(centerx, centery), cellW*0.5, color1);
 
-	centerx = end.y * cellW + cellW * 0.5;
-	centery = end.x * cellH + cellH * 0.5;
+	centerx = endP.y * cellW + cellW * 0.5;
+	centery = endP.x * cellH + cellH * 0.5;
 	Color4F color2(0, 0, 1, 1);
 	m_drawNode->drawDot(Vec2(centerx, centery), cellW*0.5, color2);
 
 	//保证起点和终点都不是障碍物 也不在闭合列表里
-	initMap(start,end);
+	initMap(startP, endP);
 
 	//根据搜索得到的终点openpoint，一直延路径回溯
 	//并将回溯经过的点标记为'O'
-	auto rs = findway(start, end);
+	auto rs = findway(startP, endP);
 	Color4F color3(1, 1, 1, 1);
 	while (rs != nullptr)
 	{
 		bool isDrawPath = true;
-		if (rs->x == start.x && rs->y == start.y)
+		if (rs->x == startP.x && rs->y == startP.y)
 		{
 			isDrawPath = false;
 		}
@@ -158,11 +158,11 @@ void AStarScene::initMap(const OpenPoint & p1, const OpenPoint & p2)
 }
 
 //判断是否在闭合列表或者障碍物里
-bool AStarScene::inBarrierAndCloseList(const BasePoint & pos)
+bool AStarScene::inBarrierAndCloseList(int x,int y)
 {
-	if (pos.x < 0 || pos.y < 0 || pos.x >= m_row || pos.y >= m_col)
+	if (x < 0 || y < 0 || x >= m_row || y >= m_col)
 		return true;
-	std::string key = std::to_string(pos.x) + "_" + std::to_string(pos.y);
+	std::string key = std::to_string(x) + "_" + std::to_string(y);
 	return m_closeAndBarrierList[key];
 }
 
@@ -179,23 +179,26 @@ void AStarScene::open(OpenPoint& pointToOpen, const OpenPoint &end)
 	m_closeAndBarrierList[std::to_string(pointToOpen.x) + "_" + std::to_string(pointToOpen.y)] = true;
 
 	//检查p点水平和竖直的点
+	
 	for (int i = 0; i < 4;i++)
 	{
 		
 		int x = pointToOpen.x + direction[i].x;
 		int y = pointToOpen.y + direction[i].y;
-		OpenPoint *toCreate = new OpenPoint(x,y);
+		
 		//如果不是障碍点 也不在闭合列表里
-		if (!inBarrierAndCloseList(*toCreate))
+		
+		if (!inBarrierAndCloseList(x, y))
 		{
-			 
 			//再次判断是否已经在开启列表，如果已经在open列表，需要比较更新
 			std::string k = std::to_string(x) + "_" + std::to_string(y);
-			if (!m_openComPareList[k])
+			OpenPoint * toCreate = new OpenPoint(x, y);
+			//消耗值+10 并且标记父节点为pointToOpen
+			toCreate->calulatePoint(end, pointToOpen.cost + 10, &pointToOpen);
+			std::map<std::string, OpenPoint*>::iterator iter = m_openComPareList.find(k); //m_openComPareList[k]居然会创建要给null的值
+			if (iter == m_openComPareList.end())
 			{
 				//如果也不在更新列表，直接加入open列表
-				//消耗值+10 并且标记父节点为pointToOpen
-				toCreate->calulatePoint(end, pointToOpen.cost + 10, &pointToOpen);
 				openList.push(toCreate);
 				updateOpenlist(toCreate, true);
 			}
@@ -204,12 +207,12 @@ void AStarScene::open(OpenPoint& pointToOpen, const OpenPoint &end)
 				//如果已经在open列表，需要比较看是否需要更新父节点
 				OpenPoint *p = m_openComPareList[k];
 				int predOld = p->pred;
-				toCreate->calulatePoint(end, pointToOpen.cost + 10, &pointToOpen);
 				if (predOld > toCreate->pred)
 				{
 					//如果原有的预测值大于当前的预测值 则更新
-					p = toCreate;
-					updateOpenlist(toCreate, true);
+					p->cost = pointToOpen.cost + 10;
+					p->pred = toCreate->pred;
+					p->father = &pointToOpen;
 				}
 
 			}
@@ -223,30 +226,45 @@ void AStarScene::open(OpenPoint& pointToOpen, const OpenPoint &end)
 
 		int x = pointToOpen.x + corners[i].x;
 		int y = pointToOpen.y + corners[i].y;
-		OpenPoint *toCreate = new OpenPoint(x, y);
-		std::string k = std::to_string(x) + "_" + std::to_string(y);
-		if (!m_openComPareList[k])
+	
+		//如果不是障碍点 也不在闭合列表里
+
+		if (!inBarrierAndCloseList(x, y))
 		{
-			//如果也不在更新列表，直接加入open列表
+			std::string k = std::to_string(x) + "_" + std::to_string(y);
+			OpenPoint *toCreate = new OpenPoint(x, y);
 			//消耗值+10 并且标记父节点为pointToOpen
 			toCreate->calulatePoint(end, pointToOpen.cost + 14, &pointToOpen);
-			openList.push(toCreate);
-			updateOpenlist(toCreate, true);
-		}
-		else
-		{
-			//如果已经在open列表，需要比较看是否需要更新父节点
-			OpenPoint *p = m_openComPareList[k];
-			int predOld = p->pred;
-			toCreate->calulatePoint(end, pointToOpen.cost + 14, &pointToOpen);
-			if (predOld > toCreate->pred)
+			std::map<std::string, OpenPoint*>::iterator iter = m_openComPareList.find(k);
+			if (x == 2 && y == 7)
 			{
-				//如果原有的预测值大于当前的预测值 则更新
-				p = toCreate;
+				int a = 10;
+			}
+			if (iter == m_openComPareList.end())
+			{
+				//如果也不在更新列表，直接加入open列表
+				openList.push(toCreate);
 				updateOpenlist(toCreate, true);
+			}
+			else
+			{
+				//如果已经在open列表，需要比较看是否需要更新父节点
+				OpenPoint *p = m_openComPareList[k];
+				int predOld = p->pred;
+				if (predOld > toCreate->pred)
+				{
+					//如果原有的预测值大于当前的预测值 则更新
+					//p->calulatePoint(end, pointToOpen.cost + 14, &pointToOpen);
+					p->cost = pointToOpen.cost + 14;
+					p->pred = toCreate->pred;
+					p->father = &pointToOpen;
+					
+				}
+
 			}
 
 		}
+		
 	}
 	
 
@@ -264,7 +282,7 @@ OpenPoint* AStarScene::findway(OpenPoint& start, const OpenPoint& end)
 	s1->calulatePoint(end,0,nullptr);
 	
 	openList.push(s1);
-	updateOpenlist(&start, true);
+	updateOpenlist(s1, true);
 
 	//标记起始点不在列表里
 	m_closeAndBarrierList[std::to_string(start.x) + "_" + std::to_string(start.y)] = false;
@@ -288,6 +306,8 @@ OpenPoint* AStarScene::findway(OpenPoint& start, const OpenPoint& end)
 		open(*toOpen, end);
 	}
 
+	return nullptr;
+
 }
 
 void AStarScene::updateOpenlist(OpenPoint *p, bool isAdd)
@@ -301,7 +321,8 @@ void AStarScene::updateOpenlist(OpenPoint *p, bool isAdd)
 	}
 	else
 	{
-		m_openComPareList[k] = nullptr;
+		std::map<std::string, OpenPoint*>::iterator key = m_openComPareList.find(k);
+		m_openComPareList.erase(key);
 	}
 	
 	
@@ -310,6 +331,24 @@ void AStarScene::updateOpenlist(OpenPoint *p, bool isAdd)
 AStarScene::~AStarScene()
 {
 	m_closeAndBarrierList.clear();
+
+
+	std::map<std::string, OpenPoint*>::iterator it;
+	for (it = m_openComPareList.begin(); it != m_openComPareList.end();it++)
+	{
+		if (it->second)
+		{
+			delete(it->second);
+			it->second = nullptr;
+		}
+		
+	}
 	m_openComPareList.clear();
+
+	//while (!openList.empty()){
+	//	openList.pop();
+	//}
+
+	
 }
 
