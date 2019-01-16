@@ -114,6 +114,9 @@
     <ClCompile Include="..\Classes\VehicleSprite.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\AStarScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -252,6 +255,9 @@
       <Filter>src\2D</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\VehicleSprite.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AStarScene.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

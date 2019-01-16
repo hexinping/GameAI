@@ -2,6 +2,7 @@
 #include "HelloWorldScene.h"
 #include "MineScene.h"
 #include "MovingEntityScene.h"
+#include "AStarScene.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -77,7 +78,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	glview->setFrameSize(1136, 640);
 
     // Set the design resolution
-	glview->setDesignResolutionSize(mediumResolutionSize.width, mediumResolutionSize.height, ResolutionPolicy::NO_BORDER);
+	glview->setDesignResolutionSize(1136, 640, ResolutionPolicy::NO_BORDER);
     auto frameSize = glview->getFrameSize();
     // if the frame's height is larger than the height of medium size.
     //if (frameSize.height > mediumResolutionSize.height)
@@ -98,7 +99,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-	auto scene = MovingEntityScene::createScene();
+	auto scene = AStarScene::createScene();
 
     // run
     director->runWithScene(scene);
