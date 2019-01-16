@@ -233,13 +233,9 @@ void AStarScene::open(OpenPoint& pointToOpen, const OpenPoint &end)
 		{
 			std::string k = std::to_string(x) + "_" + std::to_string(y);
 			OpenPoint *toCreate = new OpenPoint(x, y);
-			//消耗值+10 并且标记父节点为pointToOpen
+			//消耗值+14 并且标记父节点为pointToOpen
 			toCreate->calulatePoint(end, pointToOpen.cost + 14, &pointToOpen);
 			std::map<std::string, OpenPoint*>::iterator iter = m_openComPareList.find(k);
-			if (x == 2 && y == 7)
-			{
-				int a = 10;
-			}
 			if (iter == m_openComPareList.end())
 			{
 				//如果也不在更新列表，直接加入open列表
@@ -254,7 +250,6 @@ void AStarScene::open(OpenPoint& pointToOpen, const OpenPoint &end)
 				if (predOld > toCreate->pred)
 				{
 					//如果原有的预测值大于当前的预测值 则更新
-					//p->calulatePoint(end, pointToOpen.cost + 14, &pointToOpen);
 					p->cost = pointToOpen.cost + 14;
 					p->pred = toCreate->pred;
 					p->father = &pointToOpen;
@@ -332,7 +327,6 @@ AStarScene::~AStarScene()
 {
 	m_closeAndBarrierList.clear();
 
-
 	std::map<std::string, OpenPoint*>::iterator it;
 	for (it = m_openComPareList.begin(); it != m_openComPareList.end();it++)
 	{
@@ -345,10 +339,9 @@ AStarScene::~AStarScene()
 	}
 	m_openComPareList.clear();
 
-	//while (!openList.empty()){
-	//	openList.pop();
-	//}
+	while (!openList.empty()){
+		openList.pop();
+	}
 
-	
 }
 
