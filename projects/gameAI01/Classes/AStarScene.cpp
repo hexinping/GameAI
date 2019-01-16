@@ -167,6 +167,41 @@ bool AStarScene::inBarrierAndCloseList(int x,int y)
 }
 
 
+void AStarScene::caluateOpenListPoint(int x, int y, int addCost, OpenPoint& pointToOpen, const OpenPoint& end)
+{
+	//如果不是障碍点 也不在闭合列表里
+	if (!inBarrierAndCloseList(x, y))
+	{
+		//再次判断是否已经在开启列表，如果已经在open列表，需要比较更新
+		std::string k = std::to_string(x) + "_" + std::to_string(y);
+		OpenPoint * toCreate = new OpenPoint(x, y);
+		//消耗值+10 并且标记父节点为pointToOpen
+		toCreate->calulatePoint(end, pointToOpen.cost + addCost, &pointToOpen);
+		std::map<std::string, OpenPoint*>::iterator iter = m_openComPareList.find(k); //m_openComPareList[k]居然会创建要给null的值
+		if (iter == m_openComPareList.end())
+		{
+			//如果也不在更新列表，直接加入open列表
+			openList.push(toCreate);
+			updateOpenlist(toCreate, true);
+		}
+		else
+		{
+			//如果已经在open列表，需要比较看是否需要更新父节点
+			OpenPoint *p = m_openComPareList[k];
+			int predOld = p->pred;
+			if (predOld > toCreate->pred)
+			{
+				//如果原有的预测值大于当前的预测值 则更新
+				p->cost = pointToOpen.cost + addCost;
+				p->pred = toCreate->pred;
+				p->father = &pointToOpen;
+			}
+
+		}
+
+	}
+
+}
 // 开启检查，检查父节点 
 void AStarScene::open(OpenPoint& pointToOpen, const OpenPoint &end)
 {
@@ -179,46 +214,11 @@ void AStarScene::open(OpenPoint& pointToOpen, const OpenPoint &end)
 	m_closeAndBarrierList[std::to_string(pointToOpen.x) + "_" + std::to_string(pointToOpen.y)] = true;
 
 	//检查p点水平和竖直的点
-	
 	for (int i = 0; i < 4;i++)
 	{
-		
 		int x = pointToOpen.x + direction[i].x;
 		int y = pointToOpen.y + direction[i].y;
-		
-		//如果不是障碍点 也不在闭合列表里
-		
-		if (!inBarrierAndCloseList(x, y))
-		{
-			//再次判断是否已经在开启列表，如果已经在open列表，需要比较更新
-			std::string k = std::to_string(x) + "_" + std::to_string(y);
-			OpenPoint * toCreate = new OpenPoint(x, y);
-			//消耗值+10 并且标记父节点为pointToOpen
-			toCreate->calulatePoint(end, pointToOpen.cost + 10, &pointToOpen);
-			std::map<std::string, OpenPoint*>::iterator iter = m_openComPareList.find(k); //m_openComPareList[k]居然会创建要给null的值
-			if (iter == m_openComPareList.end())
-			{
-				//如果也不在更新列表，直接加入open列表
-				openList.push(toCreate);
-				updateOpenlist(toCreate, true);
-			}
-			else
-			{
-				//如果已经在open列表，需要比较看是否需要更新父节点
-				OpenPoint *p = m_openComPareList[k];
-				int predOld = p->pred;
-				if (predOld > toCreate->pred)
-				{
-					//如果原有的预测值大于当前的预测值 则更新
-					p->cost = pointToOpen.cost + 10;
-					p->pred = toCreate->pred;
-					p->father = &pointToOpen;
-				}
-
-			}
-		
-		}
-		
+		caluateOpenListPoint(x, y, 10, pointToOpen, end);
 	}
 
 	//检查p点四角的点 斜边的点
@@ -226,44 +226,8 @@ void AStarScene::open(OpenPoint& pointToOpen, const OpenPoint &end)
 
 		int x = pointToOpen.x + corners[i].x;
 		int y = pointToOpen.y + corners[i].y;
-	
-		//如果不是障碍点 也不在闭合列表里
-
-		if (!inBarrierAndCloseList(x, y))
-		{
-			std::string k = std::to_string(x) + "_" + std::to_string(y);
-			OpenPoint *toCreate = new OpenPoint(x, y);
-			//消耗值+14 并且标记父节点为pointToOpen
-			toCreate->calulatePoint(end, pointToOpen.cost + 14, &pointToOpen);
-			std::map<std::string, OpenPoint*>::iterator iter = m_openComPareList.find(k);
-			if (iter == m_openComPareList.end())
-			{
-				//如果也不在更新列表，直接加入open列表
-				openList.push(toCreate);
-				updateOpenlist(toCreate, true);
-			}
-			else
-			{
-				//如果已经在open列表，需要比较看是否需要更新父节点
-				OpenPoint *p = m_openComPareList[k];
-				int predOld = p->pred;
-				if (predOld > toCreate->pred)
-				{
-					//如果原有的预测值大于当前的预测值 则更新
-					p->cost = pointToOpen.cost + 14;
-					p->pred = toCreate->pred;
-					p->father = &pointToOpen;
-					
-				}
-
-			}
-
-		}
-		
+		caluateOpenListPoint(x, y, 14, pointToOpen, end);
 	}
-	
-
-	
 }
 
 //开始搜索路径

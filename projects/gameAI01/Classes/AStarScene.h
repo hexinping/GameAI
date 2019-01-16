@@ -109,6 +109,7 @@ public:
 	~AStarScene();
 
 	void updateOpenlist(OpenPoint *p, bool isAdd);
+	void caluateOpenListPoint(int x, int y, int addCost,OpenPoint& pointToOpen, const OpenPoint& end);
 
 public:
 	//char ** m_mapBuffer;
