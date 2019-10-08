@@ -1,0 +1,75 @@
+﻿生成启动时间为 2019/1/17 17:23:48。
+     1>项目“E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter7 to 10_Raven\Raven.vcxproj”在节点 2 上(Build 个目标)。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1193,5): warning MSB8012: TargetPath(E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter7 to 10_Raven\.\Debug\Raven.exe) does not match the Linker's OutputFile property value (E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter7 to 10_Raven\Raven.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Raven.exe" /INCREMENTAL /NOLOGO /LIBPATH:"E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter7 to 10_Raven\\..\Common\lua-5.1.3\\" lua5.1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libcmt /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:".\Debug/Raven.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:".\Debug\Raven.lib" /MACHINE:X86 /SAFESEH .\Debug\Script1.res
+         .\Debug/main.obj
+         .\Debug/Raven_Bot.obj
+         .\Debug/Raven_Game.obj
+         .\Debug/Raven_Map.obj
+         .\Debug/Raven_Weapon.obj
+         .\Debug/Weapon_Blaster.obj
+         .\Debug/Weapon_RailGun.obj
+         .\Debug/Weapon_RocketLauncher.obj
+         .\Debug/Weapon_ShotGun.obj
+         .\Debug/Projectile_Bolt.obj
+         .\Debug/Projectile_Pellet.obj
+         .\Debug/Projectile_Rocket.obj
+         .\Debug/Projectile_Slug.obj
+         .\Debug/Raven_Projectile.obj
+         .\Debug/BaseGameEntity.obj
+         .\Debug/Raven_Scriptor.obj
+         .\Debug/EntityManager.obj
+         .\Debug/GraveMarkers.obj
+         .\Debug/Raven_Door.obj
+         .\Debug/Raven_UserOptions.obj
+         .\Debug/Raven_Goal_Types.obj
+         .\Debug/Goal_AdjustRange.obj
+         .\Debug/Goal_AttackTarget.obj
+         .\Debug/Goal_Explore.obj
+         .\Debug/Goal_FollowPath.obj
+         .\Debug/Goal_GetItem.obj
+         .\Debug/Goal_HuntTarget.obj
+         .\Debug/Goal_MoveToPosition.obj
+         .\Debug/Goal_NegotiateDoor.obj
+         .\Debug/Goal_Think.obj
+         .\Debug/AttackTargetGoal_Evaluator.obj
+         .\Debug/ExploreGoal_Evaluator.obj
+         .\Debug/GetHealthGoal_Evaluator.obj
+         .\Debug/GetWeaponGoal_Evaluator.obj
+         .\Debug/Raven_Feature.obj
+         .\Debug/Goal_DodgeSideToSide.obj
+         .\Debug/Goal_SayPhrase.obj
+         .\Debug/Goal_SeekToPosition.obj
+         .\Debug/Goal_TraverseEdge.obj
+         .\Debug/Goal_Wander.obj
+         .\Debug/FuzzyModule.obj
+         .\Debug/FuzzyOperators.obj
+         .\Debug/FuzzyVariable.obj
+         .\Debug/FuzzySet_LeftShoulder.obj
+         .\Debug/FuzzySet_RightShoulder.obj
+         .\Debug/FuzzySet_Singleton.obj
+         .\Debug/FuzzySet_Triangle.obj
+         .\Debug/Raven_PathPlanner.obj
+         .\Debug/Raven_SteeringBehaviors.obj
+         .\Debug/MessageDispatcher.obj
+         .\Debug/Raven_SensoryMemory.obj
+         .\Debug/Trigger_HealthGiver.obj
+         .\Debug/Trigger_SoundNotify.obj
+         .\Debug/Trigger_WeaponGiver.obj
+         .\Debug/Raven_WeaponSystem.obj
+         .\Debug/Raven_TargetingSystem.obj
+         .\Debug/Cgdi.obj
+         .\Debug/CrudeTimer.obj
+         .\Debug/DebugConsole.obj
+         .\Debug/FrameCounter.obj
+         .\Debug/PrecisionTimer.obj
+         .\Debug/Vector2d.obj
+         .\Debug/WindowUtils.obj
+         LINK : 没有找到 .\Raven.exe 或上一个增量链接没有生成它；正在执行完全链接
+         Raven.vcxproj -> E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter7 to 10_Raven\.\Debug\Raven.exe
+     1>已完成生成项目“E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter7 to 10_Raven\Raven.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.87

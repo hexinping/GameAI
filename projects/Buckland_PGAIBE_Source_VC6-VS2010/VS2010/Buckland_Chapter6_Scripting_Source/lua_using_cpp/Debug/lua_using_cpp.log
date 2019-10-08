@@ -1,0 +1,15 @@
+﻿生成启动时间为 2019/1/17 16:30:12。
+     1>项目“E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter6_Scripting_Source\lua_using_cpp\lua_using_cpp.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter6_Scripting_Source\lua_using_cpp\\..\..\Common\\" /I"E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter6_Scripting_Source\lua_using_cpp\\..\..\Common\lua-5.1.3\include\\" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug/" /Fd".\Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug/lua_using_cpp.exe" /INCREMENTAL /NOLOGO /LIBPATH:"E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter6_Scripting_Source\lua_using_cpp\\..\..\Common\lua-5.1.3\\" lua5.1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:".\Debug/lua_using_cpp.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\lua_using_cpp.lib" /MACHINE:X86 /SAFESEH .\Debug/main.obj
+     1>main.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/SAFESEH”规范)
+     1>LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+         lua_using_cpp.vcxproj -> E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter6_Scripting_Source\lua_using_cpp\.\Debug\lua_using_cpp.exe
+     1>已完成生成项目“E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter6_Scripting_Source\lua_using_cpp\lua_using_cpp.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:01.29

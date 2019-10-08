@@ -1,0 +1,71 @@
+﻿生成启动时间为 2018/12/20 15:54:35。
+     1>项目“E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter4-SimpleSoccer\SimpleSoccer.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter4-SimpleSoccer\\..\Common\\" /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Release/" /Fd".\Release/vc120.pdb" /FR".\Release\\" /Gd /TP /analyze- /errorReport:prompt main.cpp ParamLoader.cpp SoccerPitch.cpp SoccerTeam.cpp SteeringBehaviors.cpp SupportSpotCalculator.cpp FieldPlayerStates.cpp GoalKeeperStates.cpp TeamStates.cpp ..\Common\Messaging\MessageDispatcher.cpp SoccerMessages.cpp ..\Common\Game\BaseGameEntity.cpp ..\Common\Game\EntityManager.cpp FieldPlayer.cpp Goalkeeper.cpp PlayerBase.cpp SoccerBall.cpp ..\Common\misc\Cgdi.cpp ..\Common\Debug\DebugConsole.cpp ..\Common\misc\FrameCounter.cpp ..\Common\misc\iniFileLoaderBase.cpp ..\Common\Time\PrecisionTimer.cpp ..\Common\2D\Vector2d.cpp ..\Common\misc\WindowUtils.cpp
+         main.cpp
+         ParamLoader.cpp
+         SoccerPitch.cpp
+         SoccerTeam.cpp
+         SteeringBehaviors.cpp
+         SupportSpotCalculator.cpp
+         FieldPlayerStates.cpp
+         GoalKeeperStates.cpp
+         TeamStates.cpp
+         MessageDispatcher.cpp
+         SoccerMessages.cpp
+         BaseGameEntity.cpp
+         EntityManager.cpp
+         FieldPlayer.cpp
+         Goalkeeper.cpp
+         PlayerBase.cpp
+         SoccerBall.cpp
+         Cgdi.cpp
+         DebugConsole.cpp
+         FrameCounter.cpp
+         正在生成代码...
+         正在编译...
+         iniFileLoaderBase.cpp
+     1>..\Common\misc\iniFileLoaderBase.cpp(9): warning C4305: “参数”: 从“int”到“char”截断
+     1>..\Common\misc\iniFileLoaderBase.cpp(9): warning C4309: “参数”: 截断常量值
+     1>..\Common\misc\iniFileLoaderBase.cpp(57): warning C4129: “;”: 不可识别的字符转义序列
+     1>..\Common\misc\iniFileLoaderBase.cpp(109): warning C4129: “;”: 不可识别的字符转义序列
+         PrecisionTimer.cpp
+         Vector2d.cpp
+         WindowUtils.cpp
+         正在生成代码...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /D NDEBUG /D _VC80_UPGRADE=0x0600 /l"0x0809" /nologo /fo".\Release\Script1.res" Script1.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Release/SimpleSoccer.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\Release/SimpleSoccer.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:".\Release\SimpleSoccer.lib" /MACHINE:X86 /SAFESEH .\Release\Script1.res
+         .\Release/main.obj
+         .\Release/ParamLoader.obj
+         .\Release/SoccerPitch.obj
+         .\Release/SoccerTeam.obj
+         .\Release/SteeringBehaviors.obj
+         .\Release/SupportSpotCalculator.obj
+         .\Release/FieldPlayerStates.obj
+         .\Release/GoalKeeperStates.obj
+         .\Release/TeamStates.obj
+         .\Release/MessageDispatcher.obj
+         .\Release/SoccerMessages.obj
+         .\Release/BaseGameEntity.obj
+         .\Release/EntityManager.obj
+         .\Release/FieldPlayer.obj
+         .\Release/Goalkeeper.obj
+         .\Release/PlayerBase.obj
+         .\Release/SoccerBall.obj
+         .\Release/Cgdi.obj
+         .\Release/DebugConsole.obj
+         .\Release/FrameCounter.obj
+         .\Release/iniFileLoaderBase.obj
+         .\Release/PrecisionTimer.obj
+         .\Release/Vector2d.obj
+         .\Release/WindowUtils.obj
+         SimpleSoccer.vcxproj -> E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter4-SimpleSoccer\.\Release\SimpleSoccer.exe
+       BscMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\bscmake.exe /nologo /o".\Release/SimpleSoccer.bsc" .\Release\main.sbr .\Release\ParamLoader.sbr .\Release\SoccerPitch.sbr .\Release\SoccerTeam.sbr .\Release\SteeringBehaviors.sbr .\Release\SupportSpotCalculator.sbr .\Release\FieldPlayerStates.sbr .\Release\GoalKeeperStates.sbr .\Release\TeamStates.sbr .\Release\MessageDispatcher.sbr .\Release\SoccerMessages.sbr .\Release\BaseGameEntity.sbr .\Release\EntityManager.sbr .\Release\FieldPlayer.sbr .\Release\Goalkeeper.sbr .\Release\PlayerBase.sbr .\Release\SoccerBall.sbr .\Release\Cgdi.sbr .\Release\DebugConsole.sbr .\Release\FrameCounter.sbr .\Release\iniFileLoaderBase.sbr .\Release\PrecisionTimer.sbr .\Release\Vector2d.sbr .\Release\WindowUtils.sbr
+     1>已完成生成项目“E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter4-SimpleSoccer\SimpleSoccer.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:19.77

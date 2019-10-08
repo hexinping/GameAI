@@ -1,0 +1,20 @@
+﻿生成启动时间为 2018/12/17 11:51:25。
+     1>项目“E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter2-State Machines\WestWorld1\WestWorld1.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter2-State Machines\WestWorld1\..\..\Common\\" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug/" /Fd".\Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Miner.cpp MinerOwnedStates.cpp main.cpp
+         MinerOwnedStates.cpp
+         Miner.cpp
+         正在生成代码...
+         正在跳过...(未检测到相关更改)
+         main.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug/WestWorld1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:".\Debug/WestWorld1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\WestWorld1.lib" /MACHINE:X86 /SAFESEH .\Debug/BaseGameEntity.obj
+         .\Debug/main.obj
+         .\Debug/Miner.obj
+         .\Debug/MinerOwnedStates.obj
+         WestWorld1.vcxproj -> E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter2-State Machines\WestWorld1\.\Debug\WestWorld1.exe
+     1>已完成生成项目“E:\hxp\books\游戏人工智能编程修订版\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Buckland_Chapter2-State Machines\WestWorld1\WestWorld1.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:02.28
