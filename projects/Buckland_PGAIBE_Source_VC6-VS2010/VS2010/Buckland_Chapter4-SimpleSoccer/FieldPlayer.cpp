@@ -76,7 +76,7 @@ void FieldPlayer::Update()
   //run the logic for the current state
   m_pStateMachine->Update();
 
-  //calculate the combined steering force
+  //calculate the combined steering force  ¼ÆËãºÏÁ¦
   m_pSteering->Calculate();
 
   //if no steering force is produced decelerate the player by applying a

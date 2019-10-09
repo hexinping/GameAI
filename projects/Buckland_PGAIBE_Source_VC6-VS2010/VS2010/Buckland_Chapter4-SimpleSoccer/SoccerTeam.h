@@ -60,10 +60,10 @@ private:
   SoccerTeam*               m_pOpponents;
    
   //pointers to 'key' players
-  PlayerBase*               m_pControllingPlayer;
-  PlayerBase*               m_pSupportingPlayer;
-  PlayerBase*               m_pReceivingPlayer;
-  PlayerBase*               m_pPlayerClosestToBall;
+  PlayerBase*               m_pControllingPlayer;		//控球队员
+  PlayerBase*               m_pSupportingPlayer;		//接应队员
+  PlayerBase*               m_pReceivingPlayer;			//接球队员
+  PlayerBase*               m_pPlayerClosestToBall;		//离球最近的队员
 
   //the squared distance the closest player is from the ball
   double                     m_dDistSqToBallOfClosestPlayer;

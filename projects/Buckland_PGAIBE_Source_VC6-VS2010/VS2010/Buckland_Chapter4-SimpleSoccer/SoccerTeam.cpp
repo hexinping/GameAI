@@ -36,6 +36,7 @@ SoccerTeam::SoccerTeam(Goal*        home_goal,
                                            m_pControllingPlayer(NULL),
                                            m_pPlayerClosestToBall(NULL)
 {
+  //×ãÇò¶Ó×´Ì¬»ú
   //setup the state machine
   m_pStateMachine = new StateMachine<SoccerTeam>(this);
 
@@ -72,6 +73,7 @@ SoccerTeam::~SoccerTeam()
   {
     delete *it;
   }
+  m_Players.clear();
 
   delete m_pSupportSpotCalc;
 }

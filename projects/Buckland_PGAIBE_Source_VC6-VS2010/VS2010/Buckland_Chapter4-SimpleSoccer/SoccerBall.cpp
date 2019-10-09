@@ -84,6 +84,7 @@ double SoccerBall::TimeToCoverDistance(Vector2D A,
 {
   //this will be the velocity of the ball in the next time step *if*
   //the player was to make the pass. 
+  //起始速度
   double speed = force / m_dMass;
 
   //calculate the velocity at B using the equation
@@ -93,7 +94,7 @@ double SoccerBall::TimeToCoverDistance(Vector2D A,
 
   //first calculate s (the distance between the two positions)
   double DistanceToCover =  Vec2DDistance(A, B);
-
+  //目标速度
   double term = speed*speed + 2.0*DistanceToCover*Prm.Friction;
 
   //if  (u^2 + 2as) is negative it means the ball cannot reach point B.

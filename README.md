@@ -18,6 +18,86 @@
 	 }
 
 
+--[=====[
+	
+	主循环
+	{
+		g_SoccerPitch->Render()
+
+		//update game states
+      	g_SoccerPitch->Update();  //会更新render里需要的所有数据
+	}
+
+
+	球队状态--> teamState : 攻击 防守 准备开球
+	{
+		一般球员状态 	--> FieldPlayerStates 
+		{
+			GlobalPlayerState     	通用状态
+			ChaseBall               追球
+			Dribble                 运球
+			ReturnToHomeRegion      返回自己区域
+			Wait                    等待
+			KickBall                踢球
+			ReceiveBall             接球
+			SupportAttacker         援助攻击队员
+
+		}
+
+		守门员状态 		--> GoalKeeperStates
+		{
+			GlobalKeeperState           通用状态
+			TendGoal                    朝向目标
+			InterceptBall               拦截球
+			ReturnHome                  返回自己区域
+			PutBallBackInPlay           开球 ？？？
+		}
+	}
+	
+	球场-->update
+	{
+		1 球   --> update ：边界判断，更新球位置以及球朝向
+		2 球队 --> update
+		{
+			球队状态机->update  ********
+			球员-> update
+			{
+				一般球员 --> update
+				{
+					1 一般球员状态机-->update   ********
+					2 
+					{
+						计算合力
+						修改朝向
+						修改速度
+						修改位置
+					}
+
+				}
+
+				守门员 --> update
+				{
+					1 守门员状态机-->update  ********
+					2 
+					{
+						计算合力
+						计算速度
+						计算位置
+						更新朝向
+					}
+				}
+			}
+		}
+	}
+
+
+	changeState的调用地方--> 1 各种状态的Execute方法里 2 update里 3 消息处理方法里OnMessage
+
+]=====]
+
+
+
+
 
 
 一个AI游戏的组成部分
