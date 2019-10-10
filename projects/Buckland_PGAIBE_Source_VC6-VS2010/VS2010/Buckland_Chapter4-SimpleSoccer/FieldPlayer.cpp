@@ -81,6 +81,7 @@ void FieldPlayer::Update()
 
   //if no steering force is produced decelerate the player by applying a
   //braking force
+  //m_pSteering->Force() 得到合力
   if (m_pSteering->Force().isZero())
   {
     const double BrakingRate = 0.8; 
@@ -91,11 +92,12 @@ void FieldPlayer::Update()
   //the steering force's side component is a force that rotates the 
   //player about its axis. We must limit the rotation so that a player
   //can only turn by PlayerMaxTurnRate rads per update.
-  double TurningForce =   m_pSteering->SideComponent();
+  double TurningForce =   m_pSteering->SideComponent(); //得到旋转力
 
   Clamp(TurningForce, -Prm.PlayerMaxTurnRate, Prm.PlayerMaxTurnRate);
 
-  //rotate the heading vector
+  //rotate the heading vector  
+  //m_vHeading 是个标准向量 
   Vec2DRotateAroundOrigin(m_vHeading, TurningForce);
 
   //make sure the velocity vector points in the same direction as
@@ -109,6 +111,7 @@ void FieldPlayer::Update()
   //now to calculate the acceleration due to the force exerted by
   //the forward component of the steering force in the direction
   //of the player's heading
+  //m_pSteering->ForwardComponent() 得到前进方向的合力，其实就是总合力在前方向的投影值，即dot值
   Vector2D accel = m_vHeading * m_pSteering->ForwardComponent() / m_dMass;
 
   m_vVelocity += accel;

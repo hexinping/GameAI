@@ -16,7 +16,7 @@
 		}
 
 	 }
-
+	 SoccerPitch --》 球场类，包含2个球门类，2个球队类，1个足球类， 创建窗口的时候就创建球场
 
 --[=====[
 	
@@ -31,7 +31,7 @@
 
 	球队状态--> teamState : 攻击 防守 准备开球
 	{
-		一般球员状态 	--> FieldPlayerStates 
+		一般球员状态 	--> FieldPlayerStates  
 		{
 			GlobalPlayerState     	通用状态
 			ChaseBall               追球
@@ -42,6 +42,14 @@
 			ReceiveBall             接球
 			SupportAttacker         援助攻击队员
 
+			//（状态可以写成单例模式）
+			ChaseBall* ChaseBall::Instance()
+				{
+		  				static ChaseBall instance;
+
+		  				return &instance;
+				}
+
 		}
 
 		守门员状态 		--> GoalKeeperStates
@@ -50,7 +58,7 @@
 			TendGoal                    朝向目标
 			InterceptBall               拦截球
 			ReturnHome                  返回自己区域
-			PutBallBackInPlay           开球 ？？？
+			PutBallBackInPlay           把球传回到赛场中
 		}
 	}
 	
@@ -64,7 +72,7 @@
 			{
 				一般球员 --> update
 				{
-					1 一般球员状态机-->update   ********
+					1 一般球员状态机-->update   ******** 也会修改逻辑值
 					2 
 					{
 						计算合力
