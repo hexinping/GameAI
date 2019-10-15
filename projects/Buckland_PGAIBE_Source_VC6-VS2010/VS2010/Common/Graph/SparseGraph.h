@@ -57,11 +57,11 @@ private:
     
   //returns true if an edge is not already present in the graph. Used
   //when adding edges to make sure no duplicates are created.
-  bool  UniqueEdge(int from, int to)const;
+  bool  UniqueEdge(int from, int to)const; //是否是唯一边
 
   //iterates through all the edges in the graph and removes any that point
   //to an invalidated node
-  void  CullInvalidEdges();
+  void  CullInvalidEdges(); 
   
 public:
   
@@ -424,7 +424,7 @@ bool SparseGraph<node_type, edge_type>::isNodePresent(int nd)const
 template <class node_type, class edge_type>
 bool SparseGraph<node_type, edge_type>::isEdgePresent(int from, int to)const
 {
-    if (isNodePresent(from) && isNodePresent(from))
+	if (isNodePresent(from) && isNodePresent(to))
     {
        for (EdgeList::const_iterator curEdge = m_Edges[from].begin();
             curEdge != m_Edges[from].end();
@@ -614,7 +614,7 @@ int SparseGraph<node_type, edge_type>::AddNode(node_type node)
     m_Nodes.push_back(node);
     m_Edges.push_back(EdgeList());
 
-    return m_iNextNodeIndex++;
+    return m_iNextNodeIndex++; //先返回m_iNextNodeIndex 再++
   }
 }
 

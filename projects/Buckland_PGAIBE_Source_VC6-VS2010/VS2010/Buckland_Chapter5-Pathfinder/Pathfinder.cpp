@@ -160,6 +160,7 @@ void Pathfinder::UpdateGraphFromBrush(int brush, int CellIndex)
   //from the graph
   if (brush == 1)
   {
+	//障碍物从图里删除（对应的节点以及相关边） 这里只是设置为无效节点
     m_pGraph->RemoveNode(CellIndex);
   }
 
@@ -378,7 +379,7 @@ void Pathfinder::Load( char* FileName)
 
   int terrain;
 
-  //save the terrain
+  //save the terrain 
   for (int t=0; t<m_iCellsX*m_iCellsY; ++t)
   {
     load >> terrain;
@@ -396,7 +397,7 @@ void Pathfinder::Load( char* FileName)
     else
     {
       m_TerrainType[t] = terrain;
-
+	  //根据地图类型更新地图上的节点和边
       UpdateGraphFromBrush(terrain, t);
     }
   }

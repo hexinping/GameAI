@@ -106,7 +106,7 @@ void GraphHelper_CreateGrid(graph_type& graph,
   double midY = CellHeight/2;
 
   
-  //first create all the nodes
+  //first create all the nodes  创建所有的节点，以及用节点的下标作为索引创建边集合 m_Nodes m_Edges
   for (int row=0; row<NumCellsY; ++row)
   {
     for (int col=0; col<NumCellsX; ++col)
@@ -120,6 +120,7 @@ void GraphHelper_CreateGrid(graph_type& graph,
   //now to calculate the edges. (A position in a 2d array [x][y] is the
   //same as [y*NumCellsX + x] in a 1d array). Each cell has up to eight
   //neighbours.
+  //记录每个节点所有的相邻边 m_Edges[1]= {1-2,1-3,1-4},m_Edges[2]= {2-5,2-1,2-4}.....
   for (int row=0; row<NumCellsY; ++row)
   {
     for (int col=0; col<NumCellsX; ++col)

@@ -205,7 +205,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
       
     case WM_LBUTTONDOWN:
     {
-
+	  //鼠标左键点击格子地图，修改起始点和结束点
       g_Pathfinder->PaintTerrain(MAKEPOINTS(lParam));
 
       RedrawWindowRect(hwnd, false, rectClientWindow);
@@ -272,31 +272,31 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
         break;
 
       case ID_BUTTON_DFS:
-
+		//深度优先搜索
         g_Pathfinder->CreatePathDFS(); CurrentSearchButton = ID_BUTTON_DFS; break;
 
         break;
 
       case ID_BUTTON_BFS:
-
+		//广度优先搜索
         g_Pathfinder->CreatePathBFS(); CurrentSearchButton = ID_BUTTON_BFS; break;
 
         break;
 
       case ID_BUTTON_DIJKSTRA:
-
+		 //迪克杰斯搜索
         g_Pathfinder->CreatePathDijkstra(); CurrentSearchButton = ID_BUTTON_DIJKSTRA; break;
 
         break;
 
       case ID_BUTTON_ASTAR:
-
+		 //A星搜索
         g_Pathfinder->CreatePathAStar(); CurrentSearchButton = ID_BUTTON_ASTAR; break;
 
         break;
 
       case ID_MENU_LOAD:
-          
+          //加载地图
           FileOpenDlg(hwnd, szFileName, szTitleName, "pathfinder files (*.map)", "map");
 
           if (strlen(szTitleName) > 0)
